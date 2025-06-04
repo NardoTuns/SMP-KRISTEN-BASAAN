@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cek Nilai Siswa</title>
+  <style>
+    body {
+      font-family: "Segoe UI", sans-serif;
+      background: linear-gradient(to right, #c9d6ff, #e2e2e2);
+      margin: 0;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 400px;
+      margin: auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    label {
+      font-weight: 600;
+      display: block;
+      margin-top: 10px;
+    }
+
+    select, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    button {
+      background-color: #4CAF50;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    .result {
+      margin-top: 20px;
+    }
+
+    .nilai-item {
+      background: #f3f3f3;
+      padding: 8px 12px;
+      margin: 6px 0;
+      border-radius: 8px;
+    }
+
+    @media (max-width: 480px) {
+      body {
+        padding: 10px;
+      }
+
+      .container {
+        padding: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Cek Nilai Siswa</h2>
+    <label for="nama">Nama:</label>
+    <select id="nama"></select>
+
+    <label for="kelas">Kelas:</label>
+    <select id="kelas"></select>
+
+    <button onclick="tampilkanNilai()">Lihat Nilai</button>
+
+    <div id="hasil" class="result"></div>
+  </div>
+
+  <script>
+    const url = "https://script.google.com/macros/s/AKfycbyIFOkqjiWOd4rfaYHna0qcsdHr1xSa6wzKNAhxQyXCFtD8_Oyw7mlvULOwD9rcAmmXmQ/exec";
+    let dataSiswa = [];
+
+    async function fetchData() {
+      const res = await fetch(url);
+      const data = await res.json();
+      dataSiswa = data;
+
+      const namaSet = new Set();
+      const kelasSet = new Set();
+
+      data.forEach(s => {
+        namaSet.add(s.Nama);
+        kelasSet.add(s.Kelas);
+      });
+
+      const namaSelect = document.getElementById("nama");
+      const kelasSelect = document.getElementById("kelas");
+
+      [...namaSet].sort().forEach(n => {
+        namaSelect.innerHTML += `<option value="${n}">${n}</option>`;
+      });
+
+      [...kelasSet].sort().forEach(k => {
+        kelasSelect.innerHTML += `<option value="${k}">${k}</option>`;
+      });
+    }
+
+    function tampilkanNilai() {
+      const nama = document.getElementById("nama").value;
+      const kelas = document.getElementById("kelas").value;
+      const hasil = document.getElementById("hasil");
+
+      const siswa = dataSiswa.find(s => s.Nama === nama && s.Kelas === kelas);
+      if (!siswa) {
+        hasil.innerHTML = `<p style="color:red;">Data tidak ditemukan</p>`;
+        return;
+      }
+
+      let html = `<h3>Nilai ${siswa.Nama} (${siswa.Kelas})</h3>`;
+      const mapel = ["PAK", "PKN", "B.IND", "B.ING", "MATEMATIKA", "IPA", "IPS", "TIK", "PRAKARYA", "PJOK", "MULOK"];
+
+      mapel.forEach(m => {
+        html += `<div class="nilai-item">${m}: <strong>${siswa[m] ?? '-'}</strong></div>`;
+      });
+
+      hasil.innerHTML = html;
+    }
+
+    fetchData();
+  </script>
+</body>
+</html>
