@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cek Nilai Siswa</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gradient-to-r from-green-100 via-blue-100 to-purple-100 min-h-screen flex items-center justify-center p-4">
+  <div class="bg-white rounded-2xl shadow-xl p-6 w-full max-w-lg">
+    <h1 class="text-2xl font-bold text-center mb-6 text-blue-600">Cek Nilai Siswa</h1>
+    
+    <div class="mb-4">
+      <label class="block text-sm font-semibold mb-1">Pilih Kelas</label>
+      <select id="kelas" class="w-full border p-2 rounded" onchange="loadNama()">
+        <option value="">-- Pilih Kelas --</option>
+      </select>
+    </div>
+
+    <div class="mb-4">
+      <label class="block text-sm font-semibold mb-1">Pilih Nama</label>
+      <select id="nama" class="w-full border p-2 rounded">
+        <option value="">-- Pilih Nama --</option>
+      </select>
+    </div>
+
+    <button onclick="tampilkanNilai()" class="bg-blue-500 text-white px-4 py-2 rounded w-full hover:bg-blue-600">Tampilkan Nilai</button>
+
+    <div id="hasil" class="mt-6 hidden">
+      <h2 class="text-xl font-bold mb-2">Tabel Nilai</h2>
+      <table class="w-full text-sm table-auto border border-gray-300">
+        <thead>
+          <tr class="bg-gray-200">
+            <th class="border p-2">Mata Pelajaran</th>
+            <th class="border p-2">Praktek</th>
+            <th class="border p-2">Teori</th>
+          </tr>
+        </thead>
+        <tbody id="tabel-nilai"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    const scriptURL = "https://script.google.com/macros/s/AKfycby39rOofrWrtC7mBcE3MR_R_61cHXXSJ81mDdZ9fh0mgyQ06_41WGSBJzBmGdAdCiOpTg/exec"; // Ganti dengan URL Web App Anda
+
+    async function loadKelas() {
+      const res = await fetch(`${scriptURL}?action=getKelas`);
+      const data = await res.json();
+      const kelasSelect = document.getElementById('kelas');
+      data.forEach(k => {
+        const opt = document.createElement('option');
+        opt.value = k;
+        opt.textContent = k;
+        kelasSelect.appendChild(opt);
+      });
+    }
+
+    async function loadNama() {
+      const kelas = document.getElementById('kelas').value;
+      const namaSelect = document.getElementById('nama');
+      namaSelect.innerHTML = `<option value="">-- Pilih Nama --</option>`;
+      if (!kelas) return;
+      const res = await fetch(`${scriptURL}?action=getNama&kelas=${encodeURIComponent(kelas)}`);
+      const data = await res.json();
+      data.forEach(n => {
+        const opt = document.createElement('option');
+        opt.value = n;
+        opt.textContent = n;
+        namaSelect.appendChild(opt);
+      });
+    }
+
+    async function tampilkanNilai() {
+      const kelas = document.getElementById('kelas').value;
+      const nama = document.getElementById('nama').value;
+      if (!kelas || !nama) return alert('Pilih kelas dan nama terlebih dahulu.');
+
+      const res = await fetch(`${scriptURL}?action=getNilai&kelas=${encodeURIComponent(kelas)}&nama=${encodeURIComponent(nama)}`);
+      const data = await res.json();
+      const tbody = document.getElementById('tabel-nilai');
+      tbody.innerHTML = '';
+      data.forEach(d => {
+        tbody.innerHTML += `
+          <tr>
+            <td class="border p-2">${d.mapel}</td>
+            <td class="border p-2 text-center">${d.praktek || '-'}</td>
+            <td class="border p-2 text-center">${d.teori || '-'}</td>
+          </tr>
+        `;
+      });
+      document.getElementById('hasil').classList.remove('hidden');
+    }
+
+    // Inisialisasi
+    loadKelas();
+  </script>
+</body>
+</html>
