@@ -26,6 +26,12 @@
 
     <button onclick="tampilkanNilai()" class="bg-blue-500 text-white px-4 py-2 rounded w-full hover:bg-blue-600">Tampilkan Nilai</button>
 
+    <!-- Loading Indicator -->
+    <div id="loading" class="text-center text-blue-600 font-semibold my-4 hidden">
+      Memuat data...
+    </div>
+
+    <!-- Hasil -->
     <div id="hasil" class="mt-6 hidden">
       <h2 class="text-xl font-bold mb-2">Tabel Nilai</h2>
       <table class="w-full text-sm table-auto border border-gray-300">
@@ -74,22 +80,38 @@
     async function tampilkanNilai() {
       const kelas = document.getElementById('kelas').value;
       const nama = document.getElementById('nama').value;
+      const loading = document.getElementById('loading');
+      const hasil = document.getElementById('hasil');
+      const tbody = document.getElementById('tabel-nilai');
+
       if (!kelas || !nama) return alert('Pilih kelas dan nama terlebih dahulu.');
 
-      const res = await fetch(`${scriptURL}?action=getNilai&kelas=${encodeURIComponent(kelas)}&nama=${encodeURIComponent(nama)}`);
-      const data = await res.json();
-      const tbody = document.getElementById('tabel-nilai');
-      tbody.innerHTML = '';
-      data.forEach(d => {
-        tbody.innerHTML += `
-          <tr>
-            <td class="border p-2">${d.mapel}</td>
-            <td class="border p-2 text-center">${d.praktek || '-'}</td>
-            <td class="border p-2 text-center">${d.teori || '-'}</td>
-          </tr>
-        `;
-      });
-      document.getElementById('hasil').classList.remove('hidden');
+      // Tampilkan loading dan sembunyikan hasil
+      loading.classList.remove('hidden');
+      hasil.classList.add('hidden');
+
+      try {
+        const res = await fetch(`${scriptURL}?action=getNilai&kelas=${encodeURIComponent(kelas)}&nama=${encodeURIComponent(nama)}`);
+        const data = await res.json();
+
+        tbody.innerHTML = '';
+        data.forEach(d => {
+          tbody.innerHTML += `
+            <tr>
+              <td class="border p-2">${d.mapel}</td>
+              <td class="border p-2 text-center">${d.praktek || '-'}</td>
+              <td class="border p-2 text-center">${d.teori || '-'}</td>
+            </tr>
+          `;
+        });
+
+        hasil.classList.remove('hidden');
+      } catch (error) {
+        alert('Gagal memuat data. Coba lagi nanti.');
+        console.error(error);
+      } finally {
+        loading.classList.add('hidden');
+      }
     }
 
     // Inisialisasi
