@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Penerimaan Siswa Baru | SMP Kristen Basaan</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #3498db;
+            --primary-dark: #2980b9;
+            --secondary: #2ecc71;
+            --danger: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --gray: #95a5a6;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f5f5f5;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 100%;
+            padding: 20px;
+            margin: 0 auto;
+        }
+        
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 15px 0;
+            text-align: center;
+            border-radius: 0 0 10px 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        
+        header h1 {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        
+        header p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        
+        .card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .card h2 {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: var(--primary);
+            border-bottom: 2px solid var(--light);
+            padding-bottom: 10px;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.9rem;
+            transition: border 0.3s;
+        }
+        
+        input:focus, select:focus, textarea:focus {
+            border-color: var(--primary);
+            outline: none;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--primary);
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            font-weight: 500;
+            text-align: center;
+            transition: background-color 0.3s;
+            width: 100%;
+        }
+        
+        .btn:hover {
+            background-color: var(--primary-dark);
+        }
+        
+        .btn-secondary {
+            background-color: var(--secondary);
+        }
+        
+        .btn-secondary:hover {
+            background-color: #27ae60;
+        }
+        
+        .progress-container {
+            display: none;
+            margin: 20px 0;
+        }
+        
+        .progress-bar {
+            height: 10px;
+            background-color: var(--light);
+            border-radius: 5px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+        
+        .progress {
+            height: 100%;
+            background-color: var(--primary);
+            width: 0%;
+            transition: width 0.3s;
+        }
+        
+        .status {
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+        
+        .alert {
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            display: none;
+        }
+        
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .alert-danger {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        @media (min-width: 768px) {
+            .container {
+                max-width: 600px;
+            }
+            
+            header h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>SMP KRISTEN BASAAN</h1>
+            <p>Formulir Penerimaan Siswa Baru</p>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div id="alert" class="alert" style="display: none;"></div>
+        
+        <div class="card">
+            <h2>Data Pribadi</h2>
+            <form id="registrationForm">
+                <div class="form-group">
+                    <label for="nama">Nama Lengkap</label>
+                    <input type="text" id="nama" name="nama" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="jenis_kelamin">Jenis Kelamin</label>
+                    <select id="jenis_kelamin" name="jenis_kelamin" required>
+                        <option value="">Pilih Jenis Kelamin</option>
+                        <option value="Laki-laki">Laki-laki</option>
+                        <option value="Perempuan">Perempuan</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="tempat_lahir">Tempat Lahir</label>
+                    <input type="text" id="tempat_lahir" name="tempat_lahir" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="tanggal_lahir">Tanggal Lahir</label>
+                    <input type="date" id="tanggal_lahir" name="tanggal_lahir" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="nisn">NISN (Nomor Induk Siswa Nasional)</label>
+                    <input type="text" id="nisn" name="nisn" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="nik">NIK (Nomor Induk Kependudukan)</label>
+                    <input type="text" id="nik" name="nik" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="asal_sekolah">Asal Sekolah</label>
+                    <input type="text" id="asal_sekolah" name="asal_sekolah" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="nama_ayah">Nama Ayah</label>
+                    <input type="text" id="nama_ayah" name="nama_ayah" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="nama_ibu">Nama Ibu</label>
+                    <input type="text" id="nama_ibu" name="nama_ibu" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="alamat_desa">Alamat (Desa)</label>
+                    <input type="text" id="alamat_desa" name="alamat_desa" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="kecamatan">Kecamatan</label>
+                    <input type="text" id="kecamatan" name="kecamatan" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="kabupaten">Kabupaten</label>
+                    <input type="text" id="kabupaten" name="kabupaten" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="riwayat_sakit">Riwayat Sakit (Jika ada)</label>
+                    <textarea id="riwayat_sakit" name="riwayat_sakit" rows="3"></textarea>
+                </div>
+                
+                <div class="progress-container" id="progressContainer">
+                    <div class="progress-bar">
+                        <div class="progress" id="progressBar"></div>
+                    </div>
+                    <div class="status" id="statusText">Mengirim data...</div>
+                </div>
+                
+                <button type="submit" class="btn btn-secondary" id="submitBtn">Simpan Dan Lanjut</button>
+            </form>
+        </div>
+    </div>
+    
+    <script>
+        document.getElementById('registrationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const submitBtn = document.getElementById('submitBtn');
+            const progressContainer = document.getElementById('progressContainer');
+            const progressBar = document.getElementById('progressBar');
+            const statusText = document.getElementById('statusText');
+            const alertBox = document.getElementById('alert');
+            
+            // Disable button and show progress
+            submitBtn.disabled = true;
+            progressContainer.style.display = 'block';
+            
+            // Simulate progress
+            let progress = 0;
+            const progressInterval = setInterval(() => {
+                progress += 5;
+                progressBar.style.width = `${progress}%`;
+                
+                if (progress >= 90) {
+                    clearInterval(progressInterval);
+                }
+            }, 100);
+            
+            // Collect form data
+            const formData = new FormData(this);
+            const data = {};
+            formData.forEach((value, key) => {
+                data[key] = value;
+            });
+            
+            // Add timestamp
+            data.time_stamp = new Date().toISOString();
+            
+            // Send data to Google Apps Script
+            fetch('https://script.google.com/macros/s/AKfycbz_lYSt66ek59GTnvP2xUHh5Eeg2HfVTAD4wlTz2rgh562omIdi1cNV2MmCTrXx1ic/exec', {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
+            })
+            .then(() => {
+                // Success
+                clearInterval(progressInterval);
+                progressBar.style.width = '100%';
+                statusText.textContent = 'Data berhasil dikirim!';
+                
+                // Show success message
+                alertBox.textContent = 'Data berhasil disimpan! Anda akan diarahkan ke halaman berikutnya.';
+                alertBox.className = 'alert alert-success';
+                alertBox.style.display = 'block';
+                
+                // Redirect after 2 seconds
+                setTimeout(() => {
+                    window.location.href = 'https://forms.gle/cP3GUJMDRVBf8acD6';
+                }, 2000);
+            })
+            .catch(error => {
+                // Error
+                clearInterval(progressInterval);
+                progressBar.style.backgroundColor = 'var(--danger)';
+                statusText.textContent = 'Gagal mengirim data';
+                
+                // Show error message
+                alertBox.textContent = 'Terjadi kesalahan saat mengirim data. Silakan coba lagi.';
+                alertBox.className = 'alert alert-danger';
+                alertBox.style.display = 'block';
+                
+                // Enable button
+                submitBtn.disabled = false;
+            });
+        });
+    </script>
+</body>
+</html>
