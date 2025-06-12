@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Khusus Guru</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
+            margin: 0;
+            padding: 0;
+            display: none; /* Sembunyikan sampai password benar */
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            color: #fff;
+        }
+
+        header {
+            text-align: center;
+            padding: 30px 15px;
+        }
+
+        header h1 {
+            font-size: 2em;
+            margin: 0;
+            color: #fff;
+        }
+
+        .button-container {
+            width: 90%;
+            max-width: 500px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            padding-bottom: 40px;
+        }
+
+        a.button {
+            display: block;
+            text-align: center;
+            background-color: #ffffffcc;
+            color: #333;
+            text-decoration: none;
+            padding: 15px;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 1.1em;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        a.button:hover {
+            background-color: #fffc;
+            transform: scale(1.03);
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 0.9em;
+            color: #eee;
+        }
+
+        @media (max-width: 480px) {
+            a.button {
+                font-size: 1em;
+                padding: 12px;
+            }
+        }
+    </style>
+    <script>
+        // Prompt password sebelum menampilkan halaman
+        document.addEventListener("DOMContentLoaded", function() {
+            const correctPassword = "40102046"; // Ganti password di sini jika diperlukan
+            let attempt = prompt("Masukkan password untuk mengakses halaman ini:");
+
+            if (attempt === correctPassword) {
+                document.body.style.display = "flex";
+            } else {
+                alert("Password salah. Akses ditolak.");
+                document.body.innerHTML = "<h2 style='color:white; text-align:center; margin-top:50px;'>Akses Ditolak</h2>";
+            }
+        });
+    </script>
+</head>
+<body>
+
+    <header>
+        <h1>Khusus Guru</h1>
+        <p>Portal praktis untuk kebutuhan guru sehari-hari</p>
+    </header>
+
+    <div class="button-container">
+        <a href="https://docs.google.com/spreadsheets/d/1zkp7-gSDdhP4i8zERGjeFDlai43WELdq0TCFzUjxINo/edit?usp=sharing" class="button">DKN SEM Genap 24-25</a>
+        <a href="https://docs.google.com/spreadsheets/d/1qhEmepAJtdbnCd0ZuieaScG7dAjAw6HZ0Pd4KThxNbY/edit?usp=sharing" class="button">NILAI PENGETAHUAN SEM II 24-25</a>
+        <a href="https://docs.google.com/spreadsheets/d/1jxjhIpo2wR2jlHjR7_Dp63CR-pPkkGQ6NW8lh8fspa0/edit?usp=sharing" class="button">NILAI PRAKTEK SEM II 24-25</a>
+        <a href="https://docs.google.com/spreadsheets/d/1bD8sh9Ijtpq8DqK35aDGBpPn9XjpwtV24sn0j18eBaM/edit?usp=sharing" class="button">Hasil Kuis/Ujian</a>
+        <a href="https://docs.google.com/spreadsheets/d/1hFZJ7bBeSgGns5PeZa4UbAP5RQHru2Td_WJTUVSq7dM/edit?usp=sharing" class="button">User dan Password Siswa</a>
+        <a href="#" class="button">Nama Tombol 6</a>
+        <a href="#" class="button">Nama Tombol 7</a>
+        <a href="#" class="button">Nama Tombol 8</a>
+        <a href="#" class="button">Nama Tombol 9</a>
+        <a href="#" class="button">Nama Tombol 10</a>
+    </div>
+
+    <footer>
+        &copy; 2025 Khusus Guru. Semua Hak Dilindungi.
+    </footer>
+
+</body>
+</html>
