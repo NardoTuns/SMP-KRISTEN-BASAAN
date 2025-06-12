@@ -1,1 +1,7 @@
+Kuis ini dibuat untuk Ujian SMP Kristen Basaan
+# data siswa di simpan di Google Spreadsheet (smpkristenbasaa@gmail.com)
+  lokasi Simpan (drive/0.Penting/Userkuistimer)
+# data hasil dikirim di Google Spreadsheet (smpkristenbasaa@gmail.com)
+  lokasi Simpan (drive/0.Penting/HasilKuisTImer)
 
+ketika Login, maka status siswa di UserKuisTimer akan menjadi nonaktif, sehingga tidak bisa login lagi kedua kalinya.
