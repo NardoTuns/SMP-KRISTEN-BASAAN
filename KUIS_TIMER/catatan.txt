@@ -5,3 +5,4 @@ Kuis ini dibuat untuk Ujian SMP Kristen Basaan
   lokasi Simpan (drive/0.Penting/HasilKuisTImer)
 
 ketika Login, maka status siswa di UserKuisTimer akan menjadi nonaktif, sehingga tidak bisa login lagi kedua kalinya.
+Soal disimpian di fila soal.xlsx di repository github.
