@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Kuis Interaktif</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #4e9af1;
+      --primary-dark: #357edd;
+      --secondary: #ff6b6b;
+      --dark: #1e1e2f;
+      --dark-light: #2b2b40;
+      --darker: #3a3a5c;
+      --light: #ffffff;
+      --accent: #feca57;
+      --success: #1dd1a1;
+      --danger: #ff6b6b;
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      background: var(--dark);
+      color: var(--light);
+      font-family: 'Poppins', sans-serif;
+      padding: 20px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    
+    .card {
+      background: var(--dark-light);
+      padding: 25px;
+      border-radius: 20px;
+      max-width: 600px;
+      margin: 0 auto;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      width: 100%;
+      transition: all 0.3s ease;
+    }
+    
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: var(--primary);
+      font-size: 28px;
+    }
+    
+    select, button {
+      width: 100%;
+      padding: 15px;
+      margin: 12px 0;
+      border-radius: 12px;
+      font-size: 16px;
+      border: none;
+      font-family: 'Poppins', sans-serif;
+      transition: all 0.2s ease;
+    }
+    
+    select {
+      background: var(--darker);
+      color: var(--light);
+      border: 2px solid transparent;
+    }
+    
+    select:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+    
+    button {
+      background-color: var(--primary);
+      color: white;
+      cursor: pointer;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    
+    button:hover {
+      background-color: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+    
+    button:active {
+      transform: translateY(0);
+    }
+    
+    .soal {
+      font-size: 18px;
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+    
+    .gambar {
+      max-width: 100%;
+      margin: 20px auto;
+      border-radius: 15px;
+      display: block;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      max-height: 300px;
+      object-fit: contain;
+    }
+    
+    .opsi {
+      margin: 20px 0;
+    }
+    
+    .opsi label {
+      display: block;
+      margin: 10px 0;
+      background: var(--darker);
+      padding: 15px;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border: 2px solid transparent;
+    }
+    
+    .opsi label:hover {
+      background: #4a4a6e;
+      transform: translateX(5px);
+    }
+    
+    .opsi input[type="radio"] {
+      display: none;
+    }
+    
+    .opsi input[type="radio"]:checked + label {
+      background: var(--primary);
+      border-color: var(--light);
+    }
+    
+    .timer {
+      text-align: right;
+      color: var(--accent);
+      font-weight: bold;
+      margin-bottom: 15px;
+      font-size: 18px;
+    }
+    
+    .progress-container {
+      width: 100%;
+      background: var(--darker);
+      border-radius: 10px;
+      margin: 15px 0;
+      height: 10px;
+    }
+    
+    .progress-bar {
+      height: 100%;
+      border-radius: 10px;
+      background: var(--primary);
+      transition: width 0.3s ease;
+    }
+    
+    .score-display {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 16px;
+    }
+    
+    .score-item {
+      display: inline-block;
+      margin: 0 10px;
+      padding: 8px 15px;
+      border-radius: 20px;
+      font-weight: 600;
+    }
+    
+    .correct {
+      background: var(--success);
+    }
+    
+    .wrong {
+      background: var(--danger);
+    }
+    
+    .empty {
+      background: var(--accent);
+      color: var(--dark);
+    }
+    
+    /* Animasi */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .animate-fade {
+      animation: fadeIn 0.5s ease forwards;
+    }
+    
+    /* Responsif untuk HP */
+    @media (max-width: 600px) {
+      body {
+        padding: 15px;
+      }
+      
+      .card {
+        padding: 20px;
+      }
+      
+      h2 {
+        font-size: 24px;
+      }
+      
+      select, button {
+        padding: 12px;
+        font-size: 15px;
+      }
+      
+      .soal {
+        font-size: 16px;
+      }
+      
+      .opsi label {
+        padding: 12px;
+      }
+      
+      .gambar {
+        max-height: 200px;
+      }
+    }
+    
+    /* Efek khusus */
+    .pulse {
+      animation: pulse 1.5s infinite;
+    }
+    
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(78, 154, 241, 0.7); }
+      70% { box-shadow: 0 0 0 10px rgba(78, 154, 241, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(78, 154, 241, 0); }
+    }
+    
+    .btn-special {
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .btn-special::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 5px;
+      height: 5px;
+      background: rgba(255, 255, 255, 0.5);
+      opacity: 0;
+      border-radius: 100%;
+      transform: scale(1, 1) translate(-50%);
+      transform-origin: 50% 50%;
+    }
+    
+    .btn-special:focus:not(:active)::after {
+      animation: ripple 1s ease-out;
+    }
+    
+    @keyframes ripple {
+      0% {
+        transform: scale(0, 0);
+        opacity: 0.5;
+      }
+      100% {
+        transform: scale(20, 20);
+        opacity: 0;
+      }
+    }
+
+    /* Style for admin button */
+    .admin-btn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: var(--accent);
+      color: var(--dark);
+      border: none;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      font-size: 24px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .admin-btn:hover {
+      transform: scale(1.1);
+      background-color: #ffd166;
+    }
+
+    /* Password modal */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      z-index: 2000;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      background-color: var(--dark-light);
+      padding: 30px;
+      border-radius: 15px;
+      width: 90%;
+      max-width: 400px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+    }
+
+    .modal-title {
+      margin-bottom: 20px;
+      color: var(--primary);
+      text-align: center;
+    }
+
+    .modal-input {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      border: none;
+      background-color: var(--darker);
+      color: var(--light);
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .modal-buttons {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .modal-btn {
+      flex: 1;
+      padding: 12px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+    }
+
+    .modal-btn-cancel {
+      background-color: var(--darker);
+      color: var(--light);
+    }
+
+    .modal-btn-submit {
+      background-color: var(--primary);
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+<div class="card animate-fade" id="login">
+  <h2>📚 Kuis Interaktif</h2>
+  <select id="kelas" onchange="filterNama()">
+    <option value="">Pilih Kelas</option>
+  </select>
+  <select id="nama">
+    <option value="">Pilih Nama</option>
+  </select>
+  <select id="mapel">
+    <option value="">Pilih Mata Pelajaran</option>
+  </select>
+  <input type="password" id="password" placeholder="Masukkan Password" style="margin:12px 0; padding:15px; border-radius:12px; font-size:16px; border:none; font-family: 'Poppins', sans-serif; width: 100%;">
+  <button class="btn-special pulse" onclick="mulaiKuis()">Mulai Kuis 🚀</button>
+</div>
+
+<div class="card" id="kuis" style="display:none;">
+  <div class="timer" id="timer">⏱️ Sisa waktu: 0s</div>
+  <div class="progress-container">
+    <div class="progress-bar" id="progressBar"></div>
+  </div>
+  <div class="soal" id="soalTeks"></div>
+  <img id="gambar" class="gambar" style="display:none;" />
+  <form id="opsiForm" class="opsi"></form>
+  <button class="btn-special" onclick="lanjutSoal()" id="btnLanjut">Lanjut ➡️</button>
+  <div class="score-display">
+    <span class="score-item correct" id="scoreBenar">0 Benar</span>
+    <span class="score-item wrong" id="scoreSalah">0 Salah</span>
+    <span class="score-item empty" id="scoreKosong">0 Kosong</span>
+  </div>
+</div>
+
+<!-- Admin Button -->
+<button class="admin-btn" onclick="showPasswordModal()">🔑</button>
+
+<!-- Password Modal -->
+<div id="passwordModal" class="modal">
+  <div class="modal-content">
+    <h3 class="modal-title">Admin Access</h3>
+    <input type="password" id="adminPassword" class="modal-input" placeholder="Enter admin password">
+    <div class="modal-buttons">
+      <button class="modal-btn modal-btn-cancel" onclick="hidePasswordModal()">Cancel</button>
+      <button class="modal-btn modal-btn-submit" onclick="checkAdminPassword()">Submit</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwk2Nu8PmriDscDbu57glFDCEFLbqj_ID33qkzZF1f2P7HuWlojeuHr2zAqw_QPWV64qw/exec"; // GANTI DENGAN SCRIPT DEPLOY ANDA
+const SHEETS_LINK = "https://docs.google.com/spreadsheets/d/1hFZJ7bBeSgGns5PeZa4UbAP5RQHru2Td_WJTUVSq7dM/edit?usp=sharing";
+const ADMIN_PASSWORD = "admin123"; // Ganti dengan password yang Anda inginkan
+
+let soalData = [], soalFiltered = [], jawabanUser = [];
+let indexSoal = 0, timer, waktu;
+let userNama = "", userKelas = "";
+let benar = 0, salah = 0, kosong = 0;
+
+// Fungsi untuk menampilkan modal password
+function showPasswordModal() {
+  document.getElementById('passwordModal').style.display = 'flex';
+  document.getElementById('adminPassword').focus();
+}
+
+// Fungsi untuk menyembunyikan modal password
+function hidePasswordModal() {
+  document.getElementById('passwordModal').style.display = 'none';
+  document.getElementById('adminPassword').value = '';
+}
+
+// Fungsi untuk memeriksa password admin
+function checkAdminPassword() {
+  const enteredPassword = document.getElementById('adminPassword').value;
+  if (enteredPassword === ADMIN_PASSWORD) {
+    window.open(SHEETS_LINK, '_blank');
+    hidePasswordModal();
+  } else {
+    alert('Password salah!');
+    document.getElementById('adminPassword').value = '';
+    document.getElementById('adminPassword').focus();
+  }
+}
+
+async function loadExcel(file) {
+  const res = await fetch(file);
+  const ab = await res.arrayBuffer();
+  const wb = XLSX.read(ab, { type: "array" });
+  const sheet = wb.Sheets[wb.SheetNames[0]];
+  return XLSX.utils.sheet_to_json(sheet);
+}
+
+async function init() {
+  try {
+    // Ambil data kelas dari spreadsheet
+    const resKelas = await fetch(`${SCRIPT_URL}?action=getKelas`);
+    const kelasList = await resKelas.json();
+    const kelasSelect = document.getElementById("kelas");
+    kelasList.forEach(k => {
+      const opt = document.createElement("option");
+      opt.value = k;
+      opt.textContent = `Kelas ${k}`;
+      kelasSelect.appendChild(opt);
+    });
+
+    soalData = await loadExcel("soal.xlsx");
+    const mapelSet = [...new Set(soalData.map(r => r["Mata Pelajaran"]).filter(Boolean))];
+    const mapelSelect = document.getElementById("mapel");
+    mapelSet.forEach(m => {
+      const opt = document.createElement("option");
+      opt.value = m;
+      opt.textContent = m;
+      mapelSelect.appendChild(opt);
+    });
+
+  } catch (error) {
+    console.error("Error loading data:", error);
+    alert("Gagal memuat data. Silakan coba lagi.");
+  }
+}
+
+async function filterNama() {
+  const kelas = document.getElementById("kelas").value;
+  const res = await fetch(`${SCRIPT_URL}?action=getNama&kelas=${encodeURIComponent(kelas)}`);
+  const data = await res.json();
+  const namaSelect = document.getElementById("nama");
+  namaSelect.innerHTML = '<option value="">Pilih Nama</option>';
+  data.forEach(nama => {
+    const opt = document.createElement("option");
+    opt.value = nama;
+    opt.textContent = nama;
+    namaSelect.appendChild(opt);
+  });
+}
+
+async function mulaiKuis() {
+  const nama = document.getElementById("nama").value;
+  const kelas = document.getElementById("kelas").value;
+  const mapel = document.getElementById("mapel").value;
+  const password = document.getElementById("password").value;
+  
+  if (!nama || !kelas || !mapel || !password) {
+    alert("Lengkapi semua isian!");
+    return;
+  }
+
+  try {
+    const res = await fetch(`${SCRIPT_URL}?action=login&nama=${encodeURIComponent(nama)}&kelas=${encodeURIComponent(kelas)}&password=${encodeURIComponent(password)}`);
+    const data = await res.json();
+    
+    if (!data.success) {
+      alert("Login gagal! Periksa kembali Nama, Kelas, dan Password Anda.");
+      return;
+    }
+
+    userNama = nama;
+    userKelas = kelas;
+    
+    const kelasAngka = kelas.match(/\d+/)?.[0];
+    soalFiltered = soalData.filter(r =>
+      String(r.Kelas).trim() === kelasAngka &&
+      r["Mata Pelajaran"]?.trim() === mapel
+    );
+
+    if (soalFiltered.length === 0) {
+      alert("Tidak ada soal untuk kelas dan mapel ini.");
+      return;
+    }
+
+    benar = salah = kosong = 0;
+    jawabanUser = [];
+    indexSoal = 0;
+
+    document.getElementById("login").style.display = "none";
+    const kuisElement = document.getElementById("kuis");
+    kuisElement.style.display = "block";
+    kuisElement.classList.add("animate-fade");
+
+    tampilSo
