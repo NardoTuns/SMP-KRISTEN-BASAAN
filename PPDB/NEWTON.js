@@ -92,7 +92,7 @@ lib.properties = {
 	width: 720,
 	height: 1280,
 	fps: 24,
-	color: "#FF9900",
+	color: "#191970", // Biru Dongker Tua
 	opacity: 1.00,
 	manifest: [
 		{src:"images/NEWTON_atlas_1.png", id:"NEWTON_atlas_1"}
