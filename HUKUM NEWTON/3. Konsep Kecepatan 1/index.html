@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Konsep Kecepatan</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+    <div class="container">
+
+        <header>
+            <h1>KONSEP KECEPATAN</h1>
+        </header>
+
+        <main>
+            <div class="animation-area">
+                <div class="live-info">
+                    <p><i class="fas fa-clock"></i> Waktu: <span id="info-waktu">0</span> s</p>
+                    <p><i class="fas fa-road"></i> Jarak: <span id="info-jarak">0</span> m</p>
+                </div>
+
+                <img id="mobil" src="sumber/mobil.png" alt="Animasi Mobil">
+                
+                <span id="posisi-awal" class="posisi-marker">Posisi Awal</span>
+                <span id="posisi-akhir" class="posisi-marker">Posisi Akhir</span>
+            </div>
+
+            <div class="controls">
+                <button id="btn-jalankan">
+                    <i class="fas fa-play"></i> Jalankan Mobil
+                </button>
+                <button id="btn-penjelasan" class="hidden">
+                    <i class="fas fa-chalkboard-teacher"></i> Tampilkan Penjelasan
+                </button>
+            </div>
+
+            <div id="hasil-kalkulasi" class="hasil-area hidden">
+                </div>
+
+            <div id="penjelasan-area" class="penjelasan-area">
+                </div>
+        </main>
+
+        <footer>
+            <a href="LINK_HOME_ANDA" class="nav-btn btn-home">
+                <i class="fas fa-home"></i> Home
+            </a>
+            <a href="LINK_LANJUT_ANDA" class="nav-btn btn-lanjut">
+                Lanjut <i class="fas fa-arrow-right"></i>
+            </a>
+        </footer>
+
+    </div> 
+    <script src="script.js"></script>
+</body>
+</html>

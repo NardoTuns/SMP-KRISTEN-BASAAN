@@ -1,0 +1,293 @@
+/* --- IMpor Font Keren --- */
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap');
+
+/* --- Pengaturan Dasar --- */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Nunito', sans-serif; 
+    background: #f0f2f5; 
+}
+
+/* --- Kontainer Utama (Tampilan HP) --- */
+.container {
+    width: 100%;
+    max-width: 480px;
+    min-height: 100vh;
+    margin: 0 auto;
+    background: linear-gradient(180deg, #ffffff 0%, #f9f9f9 100%); 
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); 
+    
+    display: flex;
+    flex-direction: column;
+}
+
+/* --- Header / Judul --- */
+header {
+    background: linear-gradient(90deg, #00c6ff, #0072ff); 
+    color: white;
+    padding: 20px 15px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0, 114, 255, 0.3);
+}
+
+h1 {
+    margin: 0;
+    font-size: 1.7em; 
+    font-weight: 900; 
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+}
+
+main {
+    padding: 20px;
+    flex-grow: 1;
+}
+
+/* --- Area Animasi "Jalan Raya" (BARU) --- */
+.animation-area {
+    position: relative;
+    height: 250px; /* Lebih tinggi untuk gerakan vertikal */
+    background: #f4f4f4; /* Warna latar netral */
+    border: 2px solid #bbb;
+    border-radius: 8px;
+    margin-bottom: 25px;
+    overflow: hidden;
+}
+
+/* Kontainer Mobil untuk animasi translate */
+#mobil-container {
+    position: absolute;
+    bottom: 20px; /* Mulai di Posisi A */
+    left: 30px; /* Mulai di Posisi A */
+    z-index: 10;
+}
+#mobil {
+    width: 60px; /* Ukuran mobil lebih kecil */
+    transition: transform 0.3s ease;
+}
+
+/* Animasi multi-langkah menggunakan Keyframes */
+#mobil-container.bergerak {
+    animation: gerak-kompleks 8s ease-in-out forwards;
+}
+#mobil.bergerak {
+    animation: rotasi-mobil 8s linear forwards;
+}
+
+/* Keyframes untuk perpindahan (translasi) */
+@keyframes gerak-kompleks {
+    0%   { transform: translate(0, 0); } /* Diam di A */
+    25%  { transform: translate(0, -210px); } /* Bergerak ke B */
+    50%  { transform: translate(150px, -210px); } /* Bergerak ke C */
+    75%  { transform: translate(150px, 0); } /* Bergerak ke D */
+    100% { transform: translate(270px, 0); } /* Bergerak ke E */
+}
+
+/* Keyframes untuk rotasi mobil */
+@keyframes rotasi-mobil {
+    0%, 24%   { transform: rotate(90deg); } /* Menghadap Atas (A ke B) */
+    25%, 49%  { transform: rotate(0deg); } /* Menghadap Kanan (B ke C) */
+    50%, 74%  { transform: rotate(-90deg); } /* Menghadap Bawah (C ke D) */
+    75%, 100% { transform: rotate(0deg); } /* Menghadap Kanan (D ke E) */
+}
+
+
+/* --- Tanda Posisi A, B, C, D, E --- */
+.posisi-marker {
+    position: absolute;
+    font-size: 0.9em;
+    font-weight: 900;
+    color: white;
+    background-color: #333; /* Latar hitam */
+    padding: 3px 8px;
+    border-radius: 50%;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    z-index: 5;
+    
+    opacity: 0; /* Sembunyi */
+    transform: scale(0.5);
+    transition: all 0.5s ease;
+}
+
+.posisi-marker.visible {
+    opacity: 1;
+    transform: scale(1);
+}
+/* Koordinat penanda */
+#pos-A { bottom: 20px; left: 30px; }
+#pos-B { top: 20px; left: 30px; }
+#pos-C { top: 20px; left: 180px; }
+#pos-D { bottom: 20px; left: 180px; }
+#pos-E { bottom: 20px; left: 300px; }
+
+
+/* --- Garis Lintasan (SVG) --- */
+.path-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.path-segment {
+    stroke: #555;
+    stroke-width: 2;
+    stroke-dasharray: 5 5; /* Garis putus-putus */
+    opacity: 0;
+    transition: opacity 0.5s ease 0.3s;
+}
+.path-segment.visible {
+    opacity: 1;
+}
+
+#garis-perpindahan {
+    stroke: #d9534f; /* Merah */
+    stroke-width: 3;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+#garis-perpindahan.visible {
+    opacity: 1;
+}
+
+
+/* --- Tombol Kontrol --- */
+.controls {
+    text-align: center;
+    margin-bottom: 20px;
+}
+button {
+    width: 90%;
+    padding: 14px;
+    font-size: 1.15em;
+    font-weight: 700;
+    color: white;
+    border: none;
+    border-radius: 50px; 
+    cursor: pointer;
+    margin: 8px 0;
+    transition: all 0.3s ease; 
+    box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px; 
+}
+button:hover {
+    transform: scale(1.03); 
+    box-shadow: 0 5px 12px rgba(0,0,0,0.2);
+}
+#btn-jalankan { background: linear-gradient(90deg, #28a745, #218838); }
+#btn-jalankan:hover { background: linear-gradient(90deg, #218838, #28a745); }
+#btn-penjelasan { background: linear-gradient(90deg, #ffc107, #e0a800); color: #333; }
+#btn-penjelasan:hover { background: linear-gradient(90deg, #e0a800, #ffc107); }
+button:disabled {
+    background: #cccccc;
+    color: #666;
+    transform: scale(1);
+    box-shadow: none;
+    cursor: not-allowed;
+}
+.hidden { display: none; }
+
+
+/* --- Area Hasil Perhitungan (BARU) --- */
+.hasil-area {
+    background-color: #e6f7ff; /* Latar biru muda */
+    border: 1px solid #b3e0ff;
+    border-left: 5px solid #0072ff; /* Garis pinggir biru */
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 20px;
+    font-size: 1em;
+    line-height: 1.6;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+.hasil-area h3 {
+    margin-top: 0;
+    color: #0056b3;
+}
+.hasil-area p {
+    margin: 5px 0;
+    font-weight: 700;
+}
+.hasil-total {
+    font-size: 1.15em;
+    font-weight: 900 !important;
+    color: #0056b3;
+    margin-top: 10px !important;
+    border-top: 1px dashed #0072ff;
+    padding-top: 10px;
+}
+
+
+/* --- Area Penjelasan --- */
+.penjelasan-area {
+    background-color: #fffbe6; 
+    border: 1px solid #ffe58f;
+    border-left: 5px solid #ffc107; 
+    border-radius: 8px;
+    padding: 15px;
+    min-height: 100px;
+    font-size: 1.1em;
+    line-height: 1.6; 
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+.penjelasan-teks {
+    margin: 10px 0;
+    opacity: 0;
+    transform: translateY(10px);
+    animation: fadeIn 0.5s forwards;
+}
+.penjelasan-highlight {
+    font-weight: 900; 
+    font-size: 1.2em;
+    text-align: center;
+    color: #c9302c; 
+    margin-top: 15px;
+    padding: 12px;
+    background-color: #fdf2f2;
+    border: 2px dashed #d9534f; 
+    border-radius: 5px;
+}
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* --- Navigasi Bawah (Footer) --- */
+footer {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 20px;
+    background-color: #ffffff;
+    border-top: 1px solid #eee;
+    box-shadow: 0 -2px 5px rgba(0,0,0,0.05); 
+}
+.nav-btn {
+    text-decoration: none;
+    padding: 10px 20px;
+    font-size: 1em;
+    font-weight: 700;
+    border-radius: 50px; 
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+}
+.nav-btn:hover {
+    transform: translateY(-2px); 
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+.btn-home { background-color: #6c757d; color: white; }
+.btn-home:hover { background-color: #5a6268; }
+.btn-lanjut { background: linear-gradient(90deg, #0072ff, #00c6ff); color: white; }
+/* Perbaikan typo dari CSS asli */
+.btn-lanjut:hover { background: linear-gradient(90deg, #00c6ff, #0072ff); }

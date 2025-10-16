@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kuis Fisika - Gerak & Newton</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+    <div class="container">
+
+        <header>
+            <h1>KUIS FISIKA</h1>
+        </header>
+
+        <main>
+            <div id="start-screen">
+                <h2>Selamat Datang!</h2>
+                <p>Silakan masukkan nama Anda untuk memulai kuis.</p>
+                <input type="text" id="name-input" placeholder="Ketik nama Anda di sini...">
+                <button id="btn-mulai" class="btn-aksi">
+                    <i class="fas fa-play"></i> Mulai Kuis
+                </button>
+            </div>
+
+            <div id="quiz-screen" class="hidden">
+                <div id="quiz-progress">
+                    <span id="question-counter">Soal 1 / 10</span>
+                </div>
+                <div id="question-container">
+                    <p id="question-text">...</p>
+                </div>
+                <div id="options-container">
+                    </div>
+            </div>
+
+            <div id="result-screen" class="hidden">
+                <h2>Kuis Selesai!</h2>
+                <h3 id="user-name-display">Nama Siswa</h3>
+                <p>Skor Akhir Anda:</p>
+                <div id="score-display">100</div>
+                <button id="btn-lihat-pembahasan" class="btn-aksi">
+                    <i class="fas fa-search"></i> Lihat Pembahasan
+                </button>
+                <button id="btn-mulai-lagi" class="btn-reset">
+                    <i class="fas fa-undo"></i> Mulai Lagi
+                </button>
+            </div>
+        </main>
+
+        <footer>
+            <a href="LINK_HOME_ANDA" class="nav-btn btn-home">
+                <i class="fas fa-home"></i> Home
+            </a>
+            <a href="LINK_LANJUT_ANDA" class="nav-btn btn-lanjut">
+                Lanjut <i class="fas fa-arrow-right"></i>
+            </a>
+        </footer>
+
+    </div> 
+    
+    <div id="review-modal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <h2 id="review-question-number">Pembahasan Soal 1</h2>
+            <p id="review-question-text">...</p>
+            <div id="review-explanation" class="penjelasan-area">
+                </div>
+            <div class="review-navigation">
+                <button id="btn-prev-review" class="btn-navigasi"><i class="fas fa-arrow-left"></i></button>
+                <button id="btn-close-review" class="btn-reset">Tutup</button>
+                <button id="btn-next-review" class="btn-navigasi"><i class="fas fa-arrow-right"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
