@@ -1,0 +1,237 @@
+/* --- Impor Font Keren --- */
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap');
+
+/* --- Pengaturan Dasar --- */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Nunito', sans-serif; 
+    background: #f0f2f5; 
+}
+
+/* --- Kontainer Utama --- */
+.container {
+    width: 100%;
+    max-width: 480px;
+    min-height: 100vh;
+    margin: 0 auto;
+    background: #ffffff;
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); 
+    display: flex;
+    flex-direction: column;
+}
+
+/* --- Header / Judul --- */
+header {
+    background: linear-gradient(90deg, #00c6ff, #0072ff); 
+    color: white;
+    padding: 20px 15px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0, 114, 255, 0.3);
+}
+h1 { margin: 0; font-size: 1.6em; font-weight: 900; }
+
+main {
+    padding: 20px;
+    flex-grow: 1;
+}
+
+/* --- Area Kuis --- */
+#quiz-container {
+    width: 100%;
+}
+
+/* --- 1. Area Animasi --- */
+.animation-area {
+    position: relative;
+    height: 150px; 
+    background: #e0e0e0; 
+    border: 4px solid #555;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* --- Elemen Animasi Kustom (BARU) --- */
+.anim-objek {
+    position: absolute;
+    left: 120px;
+    bottom: 20px;
+    background: #a1887f; /* Coklat */
+    border: 3px solid #5d4037;
+    z-index: 10;
+    /* Default: Kotak */
+    width: 80px;
+    height: 80px;
+    transition: all 0.3s ease;
+}
+/* Style untuk Mobil (dipakai di Soal 2) */
+.anim-objek.mobil {
+    background: url('sumber/mobil.png') no-repeat center center;
+    background-size: contain;
+    border: none;
+    width: 120px;
+    height: 60px;
+    bottom: 10px;
+}
+/* Style untuk Bola (dipakai di Soal 3) */
+.anim-objek.bola {
+    background: #fff;
+    border: 3px solid #333;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    bottom: 20px;
+}
+
+.anim-gaya-panah {
+    position: absolute;
+    left: 30px;
+    bottom: 45px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 1em;
+    font-weight: 900;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    background: #28a745; /* Hijau */
+    z-index: 5;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+.anim-gaya-panah i { font-size: 1.5em; }
+
+.anim-info {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-weight: 700;
+    font-size: 0.9em;
+    z-index: 20;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+.anim-gaya-panah.visible, .anim-info.visible {
+    opacity: 1;
+}
+
+/* --- 2. Area Soal --- */
+#question-area {
+    padding: 10px;
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+#question-number {
+    margin: 0 0 10px 0;
+    color: #0072ff;
+}
+#question-text {
+    font-size: 1.15em;
+    font-weight: 700;
+    margin: 0 0 20px 0;
+}
+.answer-buttons {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+}
+button.pilihan {
+    padding: 14px;
+    font-size: 1.1em;
+    font-weight: 700;
+    color: white;
+    background: #0072ff;
+    border: 3px solid transparent;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+button.pilihan:hover:not(:disabled) {
+    background: #0056b3;
+}
+/* Status Jawaban */
+button.pilihan.benar {
+    background: #28a745;
+    border-color: #1fff7e;
+}
+button.pilihan.salah {
+    background: #dc3545;
+    opacity: 0.7;
+}
+button.pilihan:disabled:not(.benar) {
+    background: #ccc;
+    opacity: 0.7;
+    color: #777;
+}
+
+/* --- 3. Area Penjelasan (Hasil) --- */
+.penjelasan-area {
+    background-color: #e6f7ff;
+    border: 1px solid #b3e0ff;
+    border-left: 5px solid #0072ff; 
+    border-radius: 8px;
+    padding: 15px;
+    margin-top: 20px;
+    font-size: 1.1em;
+    line-height: 1.7; 
+}
+.kalkulasi-box {
+    background: #fff;
+    padding: 15px;
+    border-radius: 5px;
+    border: 2px dashed #0072ff;
+}
+.kalkulasi-box h3 { margin-top: 0; color: #0056b3; }
+.kalkulasi-box p { margin: 5px 0; font-weight: 700; }
+.rumus-final {
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 900;
+    font-size: 1.3em;
+    text-align: center;
+    color: #d9534f;
+    margin: 15px 0;
+    padding: 15px;
+    background-color: #f8f8f8;
+    border-radius: 5px;
+}
+.hidden { display: none; }
+
+/* Tombol Lanjut */
+.btn-skenario {
+    width: 100%;
+    margin-top: 15px;
+    padding: 14px;
+    font-size: 1.1em;
+    font-weight: 700;
+    color: white;
+    border: none;
+    border-radius: 10px; 
+    cursor: pointer;
+    background: linear-gradient(90deg, #ffc107, #e0a800);
+    color: #333;
+}
+
+/* --- Navigasi Bawah (Footer) --- */
+footer {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 20px;
+    background-color: #f8f8f8;
+    border-top: 1px solid #eee;
+}
+/* ... (Gaya .nav-btn sama seperti sebelumnya) ... */
+.nav-btn { text-decoration: none; padding: 10px 20px; font-size: 1em; font-weight: 700; border-radius: 50px; display: flex; align-items: center; gap: 8px; transition: all 0.3s ease; }
+.btn-home { background-color: #6c757d; color: white; }
+.btn-lanjut { background: linear-gradient(90deg, #0072ff, #00c6ff); color: white; }

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Konsep Jarak dan Perpindahan</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+    <div class="container">
+
+        <header>
+            <h1>KONSEP JARAK & PERPINDAHAN</h1>
+        </header>
+
+        <main>
+            <div class="animation-area">
+                
+                <span id="pos-A" class="posisi-marker">A</span>
+                <span id="pos-B" class="posisi-marker">B</span>
+                <span id="pos-C" class="posisi-marker">C</span>
+                <span id="pos-D" class="posisi-marker">D</span>
+                <span id="pos-E" class="posisi-marker">E</span>
+
+                <svg class="path-overlay">
+                    <line id="garis-ab" class="path-segment" x1="30" y1="230" x2="30" y2="20" />
+                    <line id="garis-bc" class="path-segment" x1="30" y1="20" x2="180" y2="20" />
+                    <line id="garis-cd" class="path-segment" x1="180" y1="20" x2="180" y2="230" />
+                    <line id="garis-de" class="path-segment" x1="180" y1="230" x2="300" y2="230" />
+                    
+                    <line id="garis-perpindahan" x1="30" y1="230" x2="300" y2="230" />
+                </svg>
+
+                <div id="mobil-container">
+                    <img id="mobil" src="sumber/mobil.png" alt="Animasi Mobil">
+                </div>
+            </div>
+
+            <div class="controls">
+                <button id="btn-jalankan">
+                    <i class="fas fa-play"></i> Jalankan Mobil
+                </button>
+                <button id="btn-penjelasan" class="hidden">
+                    <i class="fas fa-chalkboard-teacher"></i> Tampilkan Penjelasan
+                </button>
+            </div>
+
+            <div id="hasil-jarak" class="hasil-area hidden">
+                </div>
+
+            <div id="penjelasan-area" class="penjelasan-area">
+                </div>
+        </main>
+
+        <footer>
+            <a href="../0. Landing Page/index.html" class="nav-btn btn-home">
+                <i class="fas fa-home"></i> Home
+            </a>
+            <a href="../3. Konsep Kecepatan 1/index.html" class="nav-btn btn-lanjut">
+                Lanjut <i class="fas fa-arrow-right"></i>
+            </a>
+        </footer>
+
+    </div> 
+    <script src="script.js"></script>
+</body>
+
+</html>

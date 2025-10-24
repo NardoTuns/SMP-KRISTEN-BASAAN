@@ -1,0 +1,170 @@
+/* --- Impor Font Keren --- */
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap');
+
+/* --- Pengaturan Dasar --- */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Nunito', sans-serif; 
+    background-color: #f0f4f8; /* Latar belakang lebih cerah */
+}
+
+.container {
+    width: 100%;
+    max-width: 600px; /* Sedikit lebih lebar untuk landing page */
+    min-height: 100vh;
+    margin: 0 auto;
+    background: #ffffff;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* --- Header Utama --- */
+.main-header {
+    background: linear-gradient(135deg, #007bff, #00c6ff);
+    color: white;
+    padding: 30px 20px;
+    text-align: center;
+    border-radius: 0 0 30px 30px;
+    box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
+    margin-bottom: 20px;
+}
+.main-header .header-icon {
+    font-size: 3em;
+    margin-bottom: 10px;
+    animation: float 3s ease-in-out infinite;
+}
+.main-header h1 {
+    margin: 0;
+    font-size: 2.2em;
+    font-weight: 900;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+}
+.main-header p {
+    margin: 5px 0 0 0;
+    font-size: 1.2em;
+    opacity: 0.9;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+main {
+    padding: 0 20px;
+}
+
+/* --- Judul Bagian Materi --- */
+.topic-section {
+    margin-bottom: 30px;
+}
+.topic-section h2 {
+    font-size: 1.5em;
+    font-weight: 900;
+    color: #343a40;
+    padding-bottom: 10px;
+    border-bottom: 3px solid #007bff;
+    display: inline-block;
+    margin-bottom: 20px;
+}
+.topic-section h2 i {
+    margin-right: 10px;
+}
+
+/* --- Grid Tombol --- */
+.button-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 15px;
+}
+
+.topic-button {
+    text-decoration: none;
+    color: white;
+    padding: 20px 10px;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+    border-bottom: 4px solid rgba(0,0,0,0.2);
+}
+.topic-button:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+.topic-button:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+}
+
+.topic-button i {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+}
+
+.topic-button span {
+    font-size: 1em;
+    font-weight: 700;
+    line-height: 1.3;
+}
+
+/* --- Skema Warna Tombol --- */
+.color-1 { background: linear-gradient(135deg, #007bff, #0056b3); }
+.color-2 { background: linear-gradient(135deg, #28a745, #1e7e34); }
+.color-3 { background: linear-gradient(135deg, #ffc107, #d39e00); }
+.color-4 { background: linear-gradient(135deg, #17a2b8, #117a8b); }
+.color-5 { background: linear-gradient(135deg, #6610f2, #4a09ac); }
+.color-6 { background: linear-gradient(135deg, #fd7e14, #c8630e); }
+.color-7 { background: linear-gradient(135deg, #dc3545, #b02a37); }
+.color-8 { background: linear-gradient(135deg, #e83e8c, #b32166); }
+.color-9 { background: linear-gradient(135deg, #6f42c1, #512d98); }
+.color-10 { background: linear-gradient(135deg, #20c997, #158764); }
+.color-11 { background: linear-gradient(135deg, #343a40, #1d2124); }
+.color-12 { background: linear-gradient(135deg, #007bff, #00c6ff); }
+.color-13 { background: linear-gradient(135deg, #ffc107, #fd7e14); }
+.color-14 { background: linear-gradient(135deg, #28a745, #20c997); }
+.color-15 { background: linear-gradient(135deg, #6c757d, #343a40); }
+
+/* --- Footer --- */
+.main-footer {
+    background-color: #343a40;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    margin-top: 30px;
+}
+.main-footer p {
+    margin: 5px 0;
+    color: #ccc;
+}
+.main-footer h3 {
+    margin: 5px 0;
+    color: #ffc107;
+}
+
+/* --- Animasi Masuk (Opsional) --- */
+.topic-button {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.5s ease-out forwards;
+}
+
+/* --- Atur delay untuk setiap tombol agar muncul satu per satu --- */
+.topic-section:nth-of-type(1) .topic-button:nth-child(1) { animation-delay: 0.1s; }
+.topic-section:nth-of-type(1) .topic-button:nth-child(2) { animation-delay: 0.15s; }
+.topic-section:nth-of-type(1) .topic-button:nth-child(3) { animation-delay: 0.2s; }
+.topic-section:nth-of-type(1) .topic-button:nth-child(4) { animation-delay: 0.25s; }
+.topic-section:nth-of-type(1) .topic-button:nth-child(5) { animation-delay: 0.3s; }
+/* ... (Delay bisa ditambahkan untuk semua tombol jika diinginkan) ... */
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

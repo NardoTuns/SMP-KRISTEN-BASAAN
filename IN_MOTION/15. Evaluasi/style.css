@@ -1,0 +1,267 @@
+/* --- Impor Font Keren --- */
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap');
+
+/* --- Pengaturan Dasar --- */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Nunito', sans-serif; 
+    background: #f0f2f5; 
+}
+
+/* --- Kontainer Utama --- */
+.container {
+    width: 100%;
+    max-width: 480px;
+    min-height: 100vh;
+    margin: 0 auto;
+    background: #ffffff;
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); 
+    display: flex;
+    flex-direction: column;
+}
+
+/* --- Header / Judul --- */
+header {
+    background: linear-gradient(90deg, #00c6ff, #0072ff); 
+    color: white;
+    padding: 20px 15px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0, 114, 255, 0.3);
+}
+h1 { margin: 0; font-size: 1.6em; font-weight: 900; }
+
+main {
+    padding: 20px;
+    flex-grow: 1;
+    text-align: center; /* Pusatkan konten kuis */
+}
+
+.hidden { display: none !important; }
+
+/* --- 1. LAYAR MULAI (NAMA) --- */
+#start-screen h2 {
+    color: #0072ff;
+    font-weight: 900;
+}
+#name-input {
+    width: 90%;
+    padding: 14px;
+    font-size: 1.1em;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* --- Tombol Aksi Umum --- */
+.btn-aksi {
+    width: 90%;
+    padding: 14px;
+    font-size: 1.15em;
+    font-weight: 700;
+    color: white;
+    border: none;
+    border-radius: 50px; 
+    cursor: pointer;
+    margin: 8px 0;
+    transition: all 0.3s ease; 
+    box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px; 
+    background: linear-gradient(90deg, #28a745, #218838); /* Hijau */
+}
+.btn-reset {
+    width: 90%;
+    padding: 14px;
+    font-size: 1.15em;
+    font-weight: 700;
+    color: white;
+    border: none;
+    border-radius: 50px; 
+    cursor: pointer;
+    margin: 8px 0;
+    transition: all 0.3s ease; 
+    box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px; 
+    background: linear-gradient(90deg, #6c757d, #343a40); /* Abu-abu */
+}
+#btn-lihat-pembahasan {
+    background: linear-gradient(90deg, #0072ff, #0056b3); /* Biru */
+}
+
+
+/* --- 2. LAYAR KUIS --- */
+#quiz-progress {
+    font-size: 1em;
+    font-weight: 700;
+    color: #555;
+    margin-bottom: 15px;
+}
+#question-container {
+    min-height: 100px;
+    padding: 15px;
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+#question-text {
+    font-size: 1.2em;
+    font-weight: 700;
+    margin: 0;
+}
+#options-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+}
+button.option-btn {
+    width: 100%;
+    padding: 14px;
+    font-size: 1.1em;
+    font-weight: 700;
+    color: #333;
+    background: #fff;
+    border: 2px solid #0072ff;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: left;
+}
+button.option-btn:hover:not(:disabled) {
+    background: #e6f7ff;
+    transform: scale(1.02);
+}
+button.option-btn.correct {
+    background: #d4edda;
+    border-color: #28a745;
+    color: #155724;
+    font-weight: 900;
+}
+button.option-btn.incorrect {
+    background: #f8d7da;
+    border-color: #dc3545;
+    color: #721c24;
+    opacity: 0.8;
+}
+button.option-btn:disabled {
+    cursor: not-allowed;
+}
+
+
+/* --- 3. LAYAR HASIL --- */
+#user-name-display {
+    color: #0072ff;
+    font-weight: 900;
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+#score-display {
+    font-size: 5em;
+    font-weight: 900;
+    color: #28a745;
+    margin-bottom: 20px;
+}
+
+/* --- 4. LAYAR PEMBAHASAN (MODAL) --- */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    padding: 15px;
+}
+.modal-content {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 480px;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+}
+#review-question-number {
+    margin: 0 0 10px 0;
+    color: #0072ff;
+}
+#review-question-text {
+    font-size: 1.1em;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+.penjelasan-area {
+    background-color: #e6f7ff;
+    border: 1px solid #b3e0ff;
+    border-radius: 8px;
+    padding: 15px;
+    font-size: 1.1em;
+    line-height: 1.7; 
+    text-align: left;
+    max-height: 300px; /* Buat bisa di-scroll */
+    overflow-y: auto;
+}
+.kalkulasi-box p { margin: 5px 0; font-weight: 700; }
+.rumus-final {
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 900;
+    font-size: 1.2em;
+    text-align: center;
+    color: #d9534f;
+    margin: 10px 0;
+    padding: 10px;
+    background-color: #f8f8f8;
+    border-radius: 5px;
+}
+.review-navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+.btn-navigasi {
+    padding: 10px 15px;
+    font-size: 1em;
+    font-weight: 700;
+    border-radius: 50%;
+    border: none;
+    background: #0072ff;
+    color: white;
+    cursor: pointer;
+}
+.btn-navigasi:disabled {
+    background: #ccc;
+}
+.btn-reset {
+    width: auto;
+    padding: 10px 25px;
+}
+
+
+/* --- Navigasi Bawah (Footer) --- */
+footer {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 20px;
+    background-color: #f8f8f8;
+    border-top: 1px solid #eee;
+}
+/* ... (Gaya .nav-btn sama seperti sebelumnya) ... */
+.nav-btn { text-decoration: none; padding: 10px 20px; font-size: 1em; font-weight: 700; border-radius: 50px; display: flex; align-items: center; gap: 8px; transition: all 0.3s ease; }
+.btn-home { background-color: #6c757d; color: white; }
+.btn-lanjut { background: linear-gradient(90deg, #0072ff, #00c6ff); color: white; }

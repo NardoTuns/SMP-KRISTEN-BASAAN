@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kecepatan Konstan vs Berubah</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+    <div class="container">
+
+        <header>
+            <h1>KECEPATAN KONSTAN VS BERUBAH</h1>
+        </header>
+
+        <main>
+            <div class="animation-area two-lanes">
+                
+                <img id="mobil-1" src="sumber/mobil.png" alt="Mobil Konstan" class="mobil">
+                <span class="label" id="label-mobil-1">Mobil A (Konstan)</span>
+                
+                <img id="mobil-2" src="sumber/mobil.png" alt="Mobil Berubah" class="mobil">
+                <span class="label" id="label-mobil-2">Mobil B (Berubah)</span>
+
+                <div id="speedometer">
+                    <span id="speed-value">0</span>
+                    <span class="speed-unit">km/j</span>
+                    <div class="speed-label">Kecepatan Mobil B</div>
+                </div>
+            </div>
+
+            <div id="graph-container">
+                <h3>Grafik Kecepatan (v) vs Waktu (t)</h3>
+                <svg id="grafik">
+                    <line class="axis" x1="40" y1="20" x2="40" y2="220" />
+                    <text class="axis-label" x="15" y="120" transform="rotate(-90 15 120)">Kecepatan (v)</text>
+                    
+                    <line class="axis" x1="40" y1="220" x2="300" y2="220" />
+                    <text class="axis-label" x="170" y="240" text-anchor="middle">Waktu (t)</text>
+                    
+                    <path id="grafik-mobil-1" class="grafik-garis" d="M40,220" />
+                    <path id="grafik-mobil-2" class="grafik-garis" d="M40,220" />
+                </svg>
+                <div class="legenda">
+                    <span class="legenda-mobil-1">Mobil A (Konstan)</span>
+                    <span class="legenda-mobil-2">Mobil B (Berubah)</span>
+                </div>
+            </div>
+
+            <div class="controls">
+                <button id="btn-jalankan">
+                    <i class="fas fa-play"></i> Jalankan Animasi
+                </button>
+                <button id="btn-penjelasan" class="hidden">
+                    <i class="fas fa-chalkboard-teacher"></i> Tampilkan Penjelasan
+                </button>
+            </div>
+
+            <div id="penjelasan-area" class="penjelasan-area">
+                </div>
+        </main>
+
+        <footer>
+            <a href="../0. Landing Page/index.html" class="nav-btn btn-home">
+                <i class="fas fa-home"></i> Home
+            </a>
+            <a href="../6. Konsep Kecepatan 4/index.html" class="nav-btn btn-lanjut">
+                Lanjut <i class="fas fa-arrow-right"></i>
+            </a>
+        </footer>
+
+    </div> 
+    <script src="script.js"></script>
+</body>
+
+</html>

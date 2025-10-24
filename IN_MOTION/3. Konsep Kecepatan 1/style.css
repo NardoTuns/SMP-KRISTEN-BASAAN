@@ -1,0 +1,288 @@
+/* --- Impor Font Keren --- */
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap');
+
+/* --- Pengaturan Dasar --- */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Nunito', sans-serif; 
+    background: #f0f2f5; 
+}
+
+/* --- Kontainer Utama (Tampilan HP) --- */
+.container {
+    width: 100%;
+    max-width: 480px;
+    min-height: 100vh;
+    margin: 0 auto;
+    background: linear-gradient(180deg, #ffffff 0%, #f9f9f9 100%); 
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); 
+    display: flex;
+    flex-direction: column;
+}
+
+/* --- Header / Judul --- */
+header {
+    background: linear-gradient(90deg, #00c6ff, #0072ff); 
+    color: white;
+    padding: 20px 15px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0, 114, 255, 0.3);
+}
+
+h1 {
+    margin: 0;
+    font-size: 1.7em; 
+    font-weight: 900; 
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+}
+
+main {
+    padding: 20px;
+    flex-grow: 1;
+}
+
+/* --- Area Animasi "Jalan Raya" --- */
+.animation-area {
+    position: relative;
+    height: 120px; 
+    background: #e0e0e0; 
+    border: 4px solid #555; 
+    border-radius: 8px;
+    margin-bottom: 25px;
+    overflow: hidden;
+    /* Garis putus-putus di jalan */
+    background-image: linear-gradient(to right, #ffffff 50%, transparent 50%);
+    background-size: 40px 4px;
+    background-repeat: repeat-x;
+    background-position: center;
+}
+
+/* --- Info Real-time (BARU) --- */
+.live-info {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    background: rgba(0, 0, 0, 0.75);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 0.9em;
+    z-index: 10;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+.live-info p {
+    margin: 4px 0;
+    font-weight: 700;
+}
+.live-info span {
+    font-weight: 900;
+    color: #ffc107; /* Kuning */
+    display: inline-block;
+    min-width: 25px; /* Agar angka tidak "lompat-lompat" */
+}
+
+
+#mobil {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    width: 100px;
+    /* DURASI ANIMASI BARU (5 DETIK) & LINEAR (Kecepatan Konstan) */
+    transition: left 5s linear;
+}
+
+#mobil.bergerak {
+    left: calc(100% - 110px);
+}
+
+/* --- Tanda Posisi Awal & Akhir --- */
+.posisi-marker {
+    position: absolute;
+    top: 5px; 
+    font-size: 0.8em;
+    font-weight: 700;
+    color: white;
+    background-color: #d9534f; 
+    padding: 4px 8px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    
+    opacity: 0; 
+    transform: translateY(-10px); 
+    transition: all 0.5s ease;
+    z-index: 5;
+}
+
+#posisi-awal { left: 10px; }
+#posisi-akhir { right: 10px; }
+
+.posisi-marker.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
+/* --- Tombol Kontrol --- */
+.controls {
+    text-align: center;
+    margin-bottom: 20px;
+}
+button {
+    width: 90%;
+    padding: 14px;
+    font-size: 1.15em;
+    font-weight: 700;
+    color: white;
+    border: none;
+    border-radius: 50px; 
+    cursor: pointer;
+    margin: 8px 0;
+    transition: all 0.3s ease; 
+    box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px; 
+}
+button:hover {
+    transform: scale(1.03); 
+    box-shadow: 0 5px 12px rgba(0,0,0,0.2);
+}
+#btn-jalankan { background: linear-gradient(90deg, #28a745, #218838); }
+#btn-penjelasan { background: linear-gradient(90deg, #ffc107, #e0a800); color: #333; }
+button:disabled {
+    background: #cccccc;
+    color: #666;
+    transform: scale(1);
+    box-shadow: none;
+    cursor: not-allowed;
+}
+.hidden { display: none; }
+
+
+/* --- Area Hasil Kalkulasi (BARU) --- */
+.hasil-area {
+    background-color: #e6f7ff; /* Latar biru muda */
+    border: 1px solid #b3e0ff;
+    border-left: 5px solid #0072ff; /* Garis pinggir biru */
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 20px;
+    font-size: 1em;
+    line-height: 1.6;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+.hasil-area h3 {
+    margin-top: 0;
+    color: #0056b3;
+    font-weight: 900;
+}
+.hasil-area p {
+    margin: 5px 0;
+    font-weight: 700;
+}
+.hasil-total {
+    font-size: 1.2em;
+    font-weight: 900 !important;
+    color: #0056b3;
+    margin-top: 10px !important;
+    border-top: 2px solid #0072ff;
+    padding-top: 10px;
+    text-align: center;
+}
+
+
+/* --- Area Penjelasan (Gaya "Catatan") --- */
+.penjelasan-area {
+    background-color: #fffbe6; 
+    border: 1px solid #ffe58f;
+    border-left: 5px solid #ffc107; 
+    border-radius: 8px;
+    padding: 15px;
+    min-height: 120px;
+    font-size: 1.1em;
+    line-height: 1.6; 
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+.penjelasan-teks {
+    margin: 10px 0;
+    opacity: 0;
+    transform: translateY(10px);
+    animation: fadeIn 0.5s forwards;
+}
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* --- Gaya Penjelasan (BARU) --- */
+.penjelasan-highlight {
+    font-weight: 900; 
+    font-size: 1.2em;
+    text-align: center;
+    color: #c9302c; 
+    margin-top: 15px;
+    padding: 12px;
+    background-color: #fdf2f2;
+    border: 2px dashed #d9534f; 
+    border-radius: 5px;
+}
+.penjelasan-rumus {
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 900;
+    font-size: 1.8em;
+    text-align: center;
+    color: #0056b3;
+    margin: 15px 0;
+    padding: 15px;
+    background-color: #e6f7ff;
+    border: 2px solid #0072ff;
+    border-radius: 5px;
+}
+.penjelasan-list-item {
+    margin-left: 20px;
+    font-weight: 700;
+}
+.penjelasan-satuan-header {
+    font-weight: 900;
+    margin-top: 15px;
+    border-bottom: 2px solid #ffc107;
+    padding-bottom: 5px;
+}
+.penjelasan-satuan-item {
+    margin-left: 15px;
+    line-height: 1.8;
+}
+
+
+/* --- Navigasi Bawah (Footer) --- */
+footer {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 20px;
+    background-color: #ffffff;
+    border-top: 1px solid #eee;
+    box-shadow: 0 -2px 5px rgba(0,0,0,0.05); 
+}
+.nav-btn {
+    text-decoration: none;
+    padding: 10px 20px;
+    font-size: 1em;
+    font-weight: 700;
+    border-radius: 50px; 
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+}
+.nav-btn:hover {
+    transform: translateY(-2px); 
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+.btn-home { background-color: #6c757d; color: white; }
+.btn-lanjut { background: linear-gradient(90deg, #0072ff, #00c6ff); color: white; }

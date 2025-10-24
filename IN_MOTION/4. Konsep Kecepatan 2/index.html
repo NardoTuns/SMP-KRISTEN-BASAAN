@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kecepatan: Perbandingan</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+    <div class="container">
+
+        <header>
+            <h1>PERBANDINGAN KECEPATAN</h1>
+        </header>
+
+        <main>
+            <div class="animation-area two-lanes">
+                <div id="sekolah">
+                    <i class="fas fa-school"></i>
+                    <span>SEKOLAH</span>
+                </div>
+                
+                <img id="rina" src="sumber/rina.png" alt="Rina" class="karakter">
+                <span class="label" id="label-rina">Rina</span>
+                
+                <img id="budi" src="sumber/budi.png" alt="Budi" class="karakter">
+                <span class="label" id="label-budi">Budi</span>
+
+                <div id="info-waktu" class="hidden">
+                    <p>Waktu Rina: <span id="waktu-rina">0</span>s</p>
+                    <p>Waktu Budi: <span id="waktu-budi">0</span>s</p>
+                </div>
+            </div>
+
+            <div id="graph-container" class="hidden">
+                <h3>Grafik Jarak (s) vs Waktu (t)</h3>
+                <svg id="grafik">
+                    <line class="axis" x1="30" y1="20" x2="30" y2="220" />
+                    <text class="axis-label" x="10" y="120" transform="rotate(-90 10 120)">Jarak (s)</text>
+                    
+                    <line class="axis" x1="30" y1="220" x2="280" y2="220" />
+                    <text class="axis-label" x="155" y="240" text-anchor="middle">Waktu (t)</text>
+                    
+                    <line id="grafik-rina" class="grafik-garis" x1="30" y1="220" x2="30" y2="20" />
+                    <line id="grafik-budi" class="grafik-garis" x1="30" y1="220" x2="30" y2="20" />
+                </svg>
+                <div class="legenda">
+                    <span class="legenda-rina">Garis Rina</span>
+                    <span class="legenda-budi">Garis Budi</span>
+                </div>
+            </div>
+
+            <div class="controls">
+                <button id="btn-jalankan">
+                    <i class="fas fa-play"></i> Mulai Lomba
+                </button>
+                <button id="btn-ubah" class="hidden">
+                    <i class="fas fa-random"></i> Ubah Kecepatan
+                </button>
+                <button id="btn-penjelasan" class="hidden">
+                    <i class="fas fa-chalkboard-teacher"></i> Tampilkan Penjelasan
+                </button>
+            </div>
+
+            <div id="penjelasan-area" class="penjelasan-area">
+                </div>
+        </main>
+
+        <footer>
+            <a href="../0. Landing Page/index.html" class="nav-btn btn-home">
+                <i class="fas fa-home"></i> Home
+            </a>
+            <a href="../5. Konsep Kecepatan 3/index.html" class="nav-btn btn-lanjut">
+                Lanjut <i class="fas fa-arrow-right"></i>
+            </a>
+        </footer>
+
+    </div> 
+    <script src="script.js"></script>
+</body>
+
+</html>
