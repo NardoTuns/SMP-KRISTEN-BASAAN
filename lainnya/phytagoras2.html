@@ -1,0 +1,743 @@
+<!doctype html>
+<html lang="id" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pembelajaran Teorema Pythagoras - SMP Kristen Basaan</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="/_sdk/data_sdk.js"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <style>
+        body {
+            box-sizing: border-box;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateX(-100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .animate-bounce { animation: bounce 2s infinite; }
+        .animate-pulse { animation: pulse 2s infinite; }
+        .animate-slideIn { animation: slideIn 0.5s ease-out; }
+        .animate-fadeIn { animation: fadeIn 0.6s ease-out; }
+        
+        .triangle-animation {
+            transition: all 0.3s ease;
+        }
+        
+        .triangle-animation:hover {
+            transform: scale(1.1);
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .card-shadow {
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+    </style>
+  <style>@view-transition { navigation: auto; }</style>
+ </head>
+ <body class="h-full bg-gradient-to-br from-blue-400 via-purple-500 to-pink-500 font-sans">
+  <div class="min-h-full"><!-- Header -->
+   <header class="bg-white shadow-lg">
+    <div class="max-w-4xl mx-auto px-4 py-6">
+     <div class="text-center">
+      <h1 id="school-name" class="text-2xl font-bold text-gray-800 mb-2">SMP Kristen Basaan</h1>
+      <p id="class-info" class="text-lg text-gray-600 mb-1">Kelas 8</p>
+      <h2 id="lesson-title" class="text-3xl font-extrabold text-purple-600">Teorema Pythagoras</h2>
+     </div>
+    </div>
+   </header><!-- Navigation -->
+   <nav class="bg-purple-600 shadow-md sticky top-0 z-50">
+    <div class="max-w-4xl mx-auto px-4">
+     <div class="flex justify-center space-x-1 py-3"><button onclick="showSection('home')" class="nav-btn bg-white text-purple-600 px-4 py-2 rounded-lg font-semibold text-sm transition-all hover:bg-purple-100"> 🏠 Beranda </button> <button onclick="showSection('theory')" class="nav-btn bg-purple-500 text-white px-4 py-2 rounded-lg font-semibold text-sm transition-all hover:bg-purple-400"> 📚 Teori </button> <button onclick="showSection('simulation')" class="nav-btn bg-purple-500 text-white px-4 py-2 rounded-lg font-semibold text-sm transition-all hover:bg-purple-400"> 🔬 Simulasi </button> <button onclick="showSection('quiz')" class="nav-btn bg-purple-500 text-white px-4 py-2 rounded-lg font-semibold text-sm transition-all hover:bg-purple-400"> 🎯 Kuis </button> <button onclick="showSection('results')" class="nav-btn bg-purple-500 text-white px-4 py-2 rounded-lg font-semibold text-sm transition-all hover:bg-purple-400"> 📊 Hasil </button>
+     </div>
+    </div>
+   </nav><!-- Main Content -->
+   <main class="max-w-4xl mx-auto px-4 py-6"><!-- Home Section -->
+    <section id="home-section" class="section-content">
+     <div class="bg-white rounded-xl shadow-xl p-6 mb-6 animate-fadeIn">
+      <div class="text-center mb-6">
+       <div class="text-6xl mb-4 animate-bounce">
+        📐
+       </div>
+       <h3 id="welcome-message" class="text-2xl font-bold text-gray-800 mb-4">Selamat datang di pembelajaran interaktif!</h3>
+       <p class="text-gray-600 text-lg">Mari belajar Teorema Pythagoras dengan cara yang menyenangkan!</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+       <div class="bg-gradient-to-r from-blue-500 to-purple-600 text-white p-4 rounded-lg card-shadow">
+        <h4 class="font-bold text-lg mb-2">🎯 Tujuan Pembelajaran</h4>
+        <ul class="text-sm space-y-1">
+         <li>• Memahami konsep Teorema Pythagoras</li>
+         <li>• Menerapkan rumus a² + b² = c²</li>
+         <li>• Menyelesaikan soal-soal praktis</li>
+        </ul>
+       </div>
+       <div class="bg-gradient-to-r from-green-500 to-teal-600 text-white p-4 rounded-lg card-shadow">
+        <h4 class="font-bold text-lg mb-2">📋 Fitur Pembelajaran</h4>
+        <ul class="text-sm space-y-1">
+         <li>• Materi interaktif dengan animasi</li>
+         <li>• Simulasi segitiga siku-siku</li>
+         <li>• Kuis dengan feedback langsung</li>
+        </ul>
+       </div>
+      </div>
+     </div>
+    </section><!-- Theory Section -->
+    <section id="theory-section" class="section-content hidden">
+     <div class="bg-white rounded-xl shadow-xl p-6 mb-6 animate-slideIn">
+      <h3 class="text-2xl font-bold text-purple-600 mb-4 text-center">📚 Teori Teorema Pythagoras</h3><!-- Definisi -->
+      <div class="mb-6 p-4 bg-blue-50 rounded-lg">
+       <h4 class="font-bold text-lg text-blue-800 mb-2">Definisi</h4>
+       <p class="text-gray-700">Teorema Pythagoras menyatakan bahwa dalam segitiga siku-siku, kuadrat panjang sisi miring (hipotenusa) sama dengan jumlah kuadrat panjang kedua sisi lainnya.</p>
+      </div><!-- Rumus -->
+      <div class="mb-6 p-4 bg-purple-50 rounded-lg text-center">
+       <h4 class="font-bold text-lg text-purple-800 mb-3">Rumus Pythagoras</h4>
+       <div class="text-3xl font-bold text-purple-600 mb-2">
+        a² + b² = c²
+       </div>
+       <p class="text-sm text-gray-600">dimana c adalah sisi miring (hipotenusa)</p>
+      </div><!-- Ilustrasi Segitiga -->
+      <div class="mb-6 text-center">
+       <h4 class="font-bold text-lg mb-4">Ilustrasi Segitiga Siku-siku</h4>
+       <div class="flex justify-center">
+        <svg width="300" height="200" viewbox="0 0 300 200" class="triangle-animation"><!-- Segitiga --> <polygon points="50,150 200,150 200,50" fill="#e0e7ff" stroke="#6366f1" stroke-width="3" /> <!-- Siku-siku --> <rect x="185" y="135" width="15" height="15" fill="none" stroke="#6366f1" stroke-width="2" /> <!-- Label sisi --> <text x="125" y="170" text-anchor="middle" class="text-sm font-bold fill-blue-600">
+          a
+         </text> <text x="210" y="100" text-anchor="middle" class="text-sm font-bold fill-blue-600">
+          b
+         </text> <text x="115" y="95" text-anchor="middle" class="text-sm font-bold fill-red-600">
+          c
+         </text> <!-- Panah dan label --> <text x="150" y="30" text-anchor="middle" class="text-xs fill-red-600">
+          sisi miring (hipotenusa)
+         </text> <line x1="125" y1="35" x2="125" y2="100" stroke="#ef4444" stroke-width="1" marker-end="url(#arrowhead)" /> <defs>
+          <marker id="arrowhead" markerwidth="10" markerheight="7" refx="9" refy="3.5" orient="auto">
+           <polygon points="0 0, 10 3.5, 0 7" fill="#ef4444" />
+          </marker>
+         </defs>
+        </svg>
+       </div>
+      </div><!-- Contoh Soal -->
+      <div class="p-4 bg-green-50 rounded-lg">
+       <h4 class="font-bold text-lg text-green-800 mb-3">Contoh Soal</h4>
+       <div class="mb-3">
+        <p class="text-gray-700 mb-2"><strong>Soal:</strong> Sebuah segitiga siku-siku memiliki sisi a = 3 cm dan b = 4 cm. Berapa panjang sisi c?</p>
+        <div class="bg-white p-3 rounded border-l-4 border-green-500">
+         <p><strong>Penyelesaian:</strong></p>
+         <p>c² = a² + b²</p>
+         <p>c² = 3² + 4²</p>
+         <p>c² = 9 + 16 = 25</p>
+         <p>c = √25 = 5 cm</p>
+        </div>
+       </div>
+      </div>
+     </div>
+    </section><!-- Simulation Section -->
+    <section id="simulation-section" class="section-content hidden">
+     <div class="bg-white rounded-xl shadow-xl p-6 mb-6 animate-slideIn">
+      <h3 class="text-2xl font-bold text-purple-600 mb-4 text-center">🔬 Simulasi Interaktif</h3>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6"><!-- Input Controls -->
+       <div class="space-y-4">
+        <h4 class="font-bold text-lg text-gray-800">Masukkan Panjang Sisi:</h4>
+        <div><label class="block text-sm font-medium text-gray-700 mb-1">Sisi a (cm):</label> <input type="number" id="side-a" value="3" min="1" max="20" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent" oninput="updateTriangle()">
+        </div>
+        <div><label class="block text-sm font-medium text-gray-700 mb-1">Sisi b (cm):</label> <input type="number" id="side-b" value="4" min="1" max="20" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent" oninput="updateTriangle()">
+        </div>
+        <div class="p-4 bg-purple-50 rounded-lg">
+         <h5 class="font-bold text-purple-800 mb-2">Hasil Perhitungan:</h5>
+         <div id="calculation-steps" class="text-sm space-y-1">
+          <p>c² = a² + b²</p>
+          <p id="step1">c² = 3² + 4²</p>
+          <p id="step2">c² = 9 + 16 = 25</p>
+          <p id="step3" class="font-bold text-purple-600">c = 5 cm</p>
+         </div>
+        </div>
+       </div><!-- Visual Triangle -->
+       <div class="text-center">
+        <h4 class="font-bold text-lg text-gray-800 mb-4">Visualisasi Segitiga:</h4>
+        <div class="flex justify-center">
+         <svg id="triangle-svg" width="280" height="220" viewbox="0 0 280 220" class="border rounded-lg bg-gray-50"><!-- Grid background --> <defs>
+           <pattern id="grid" width="20" height="20" patternunits="userSpaceOnUse">
+            <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#e5e7eb" stroke-width="1" />
+           </pattern>
+          </defs> <rect width="100%" height="100%" fill="url(#grid)" /> <!-- Triangle will be drawn here by JavaScript -->
+         </svg>
+        </div>
+        <div class="mt-4 grid grid-cols-3 gap-2 text-sm">
+         <div class="p-2 bg-blue-100 rounded">
+          <div class="font-bold text-blue-600">
+           Sisi a
+          </div>
+          <div id="display-a">
+           3 cm
+          </div>
+         </div>
+         <div class="p-2 bg-green-100 rounded">
+          <div class="font-bold text-green-600">
+           Sisi b
+          </div>
+          <div id="display-b">
+           4 cm
+          </div>
+         </div>
+         <div class="p-2 bg-red-100 rounded">
+          <div class="font-bold text-red-600">
+           Sisi c
+          </div>
+          <div id="display-c">
+           5 cm
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </section><!-- Quiz Section -->
+    <section id="quiz-section" class="section-content hidden">
+     <div class="bg-white rounded-xl shadow-xl p-6 mb-6 animate-slideIn">
+      <h3 class="text-2xl font-bold text-purple-600 mb-4 text-center">🎯 Kuis Teorema Pythagoras</h3>
+      <div id="quiz-start" class="text-center">
+       <div class="mb-6">
+        <div class="text-4xl mb-4">
+         🧠
+        </div>
+        <p class="text-gray-600 mb-4">Uji pemahaman Anda tentang Teorema Pythagoras!</p>
+        <div class="mb-4"><label class="block text-sm font-medium text-gray-700 mb-2">Nama Siswa:</label> <input type="text" id="student-name" placeholder="Masukkan nama Anda" class="w-full max-w-xs mx-auto px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500">
+        </div><button onclick="startQuiz()" class="bg-purple-600 text-white px-6 py-3 rounded-lg font-bold hover:bg-purple-700 transition-colors"> Mulai Kuis </button>
+       </div>
+      </div>
+      <div id="quiz-content" class="hidden">
+       <div class="mb-4 flex justify-between items-center">
+        <div class="text-sm text-gray-600">
+         Soal <span id="current-question">1</span> dari <span id="total-questions">5</span>
+        </div>
+        <div class="text-sm text-gray-600">
+         Waktu: <span id="timer">00:00</span>
+        </div>
+       </div>
+       <div class="mb-6">
+        <div class="w-full bg-gray-200 rounded-full h-2">
+         <div id="progress-bar" class="bg-purple-600 h-2 rounded-full transition-all" style="width: 20%"></div>
+        </div>
+       </div>
+       <div id="question-container" class="mb-6"><!-- Questions will be loaded here -->
+       </div>
+       <div class="flex justify-between"><button id="prev-btn" onclick="previousQuestion()" class="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition-colors" disabled> ← Sebelumnya </button> <button id="next-btn" onclick="nextQuestion()" class="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors"> Selanjutnya → </button>
+       </div>
+      </div>
+      <div id="quiz-result" class="hidden text-center">
+       <div class="text-6xl mb-4">
+        🎉
+       </div>
+       <h4 class="text-2xl font-bold text-green-600 mb-4">Kuis Selesai!</h4>
+       <div class="bg-green-50 p-6 rounded-lg mb-4">
+        <div class="text-3xl font-bold text-green-600 mb-2" id="final-score">
+         0/5
+        </div>
+        <div class="text-lg text-gray-700" id="score-message">
+         Bagus sekali!
+        </div>
+        <div class="text-sm text-gray-600 mt-2" id="completion-time">
+         Waktu: 00:00
+        </div>
+       </div><button onclick="restartQuiz()" class="bg-purple-600 text-white px-6 py-3 rounded-lg font-bold hover:bg-purple-700 transition-colors mr-2"> Ulangi Kuis </button> <button onclick="showSection('results')" class="bg-green-600 text-white px-6 py-3 rounded-lg font-bold hover:bg-green-700 transition-colors"> Lihat Semua Hasil </button>
+      </div>
+     </div>
+    </section><!-- Results Section -->
+    <section id="results-section" class="section-content hidden">
+     <div class="bg-white rounded-xl shadow-xl p-6 mb-6 animate-slideIn">
+      <h3 class="text-2xl font-bold text-purple-600 mb-4 text-center">📊 Hasil Kuis</h3>
+      <div id="no-results" class="text-center py-8">
+       <div class="text-4xl mb-4">
+        📝
+       </div>
+       <p class="text-gray-600 mb-4">Belum ada hasil kuis tersimpan.</p><button onclick="showSection('quiz')" class="bg-purple-600 text-white px-6 py-3 rounded-lg font-bold hover:bg-purple-700 transition-colors"> Mulai Kuis Pertama </button>
+      </div>
+      <div id="results-list" class="hidden">
+       <div class="mb-4 flex justify-between items-center">
+        <h4 class="font-bold text-lg">Riwayat Hasil Kuis</h4><button onclick="clearAllResults()" class="bg-red-500 text-white px-4 py-2 rounded-lg text-sm hover:bg-red-600 transition-colors"> Hapus Semua </button>
+       </div>
+       <div id="results-container" class="space-y-3"><!-- Results will be loaded here -->
+       </div>
+      </div>
+     </div>
+    </section>
+   </main><!-- Footer -->
+   <footer class="bg-gray-800 text-white py-6 mt-8">
+    <div class="max-w-4xl mx-auto px-4 text-center">
+     <p class="text-sm">© 2024 SMP Kristen Basaan - Pembelajaran Interaktif Matematika</p>
+     <p class="text-xs text-gray-400 mt-1">Dibuat dengan ❤️ untuk pendidikan yang lebih baik</p>
+    </div>
+   </footer>
+  </div>
+  <script>
+        // Configuration object for Element SDK
+        const defaultConfig = {
+            school_name: "SMP Kristen Basaan",
+            class_info: "Kelas 8", 
+            lesson_title: "Teorema Pythagoras",
+            welcome_message: "Selamat datang di pembelajaran interaktif!",
+            primary_color: "#7c3aed",
+            secondary_color: "#ffffff",
+            accent_color: "#10b981",
+            text_color: "#374151",
+            background_color: "#f3f4f6"
+        };
+
+        // Quiz data
+        const quizQuestions = [
+            {
+                question: "Dalam segitiga siku-siku dengan sisi a = 6 cm dan b = 8 cm, berapa panjang sisi c?",
+                options: ["10 cm", "12 cm", "14 cm", "16 cm"],
+                correct: 0,
+                explanation: "c² = 6² + 8² = 36 + 64 = 100, jadi c = √100 = 10 cm"
+            },
+            {
+                question: "Jika sisi miring segitiga siku-siku adalah 13 cm dan salah satu sisinya 5 cm, berapa panjang sisi lainnya?",
+                options: ["8 cm", "10 cm", "12 cm", "15 cm"],
+                correct: 2,
+                explanation: "b² = c² - a² = 13² - 5² = 169 - 25 = 144, jadi b = √144 = 12 cm"
+            },
+            {
+                question: "Manakah dari berikut ini yang merupakan tripel Pythagoras?",
+                options: ["(2, 3, 4)", "(3, 4, 5)", "(4, 5, 6)", "(5, 6, 7)"],
+                correct: 1,
+                explanation: "3² + 4² = 9 + 16 = 25 = 5², jadi (3, 4, 5) adalah tripel Pythagoras"
+            },
+            {
+                question: "Sebuah tangga sepanjang 5 meter disandarkan ke dinding. Jika jarak kaki tangga ke dinding 3 meter, berapa tinggi dinding yang dicapai tangga?",
+                options: ["3 meter", "4 meter", "5 meter", "6 meter"],
+                correct: 1,
+                explanation: "h² = 5² - 3² = 25 - 9 = 16, jadi h = √16 = 4 meter"
+            },
+            {
+                question: "Dalam teorema Pythagoras a² + b² = c², huruf c mewakili:",
+                options: ["Sisi terpendek", "Sisi terpanjang", "Sisi miring (hipotenusa)", "Sudut siku-siku"],
+                correct: 2,
+                explanation: "Dalam teorema Pythagoras, c selalu mewakili sisi miring atau hipotenusa, yaitu sisi terpanjang dalam segitiga siku-siku"
+            }
+        ];
+
+        // Global variables
+        let currentQuestionIndex = 0;
+        let userAnswers = [];
+        let quizStartTime = 0;
+        let timerInterval = null;
+        let quizData = [];
+
+        // Data SDK handler
+        const dataHandler = {
+            onDataChanged(data) {
+                quizData = data;
+                updateResultsDisplay();
+            }
+        };
+
+        // Element SDK implementation
+        async function onConfigChange(config) {
+            const schoolName = config.school_name || defaultConfig.school_name;
+            const classInfo = config.class_info || defaultConfig.class_info;
+            const lessonTitle = config.lesson_title || defaultConfig.lesson_title;
+            const welcomeMessage = config.welcome_message || defaultConfig.welcome_message;
+            
+            document.getElementById('school-name').textContent = schoolName;
+            document.getElementById('class-info').textContent = classInfo;
+            document.getElementById('lesson-title').textContent = lessonTitle;
+            document.getElementById('welcome-message').textContent = welcomeMessage;
+        }
+
+        function mapToCapabilities(config) {
+            return {
+                recolorables: [
+                    {
+                        get: () => config.primary_color || defaultConfig.primary_color,
+                        set: (value) => {
+                            if (window.elementSdk) {
+                                window.elementSdk.setConfig({ primary_color: value });
+                            }
+                        }
+                    },
+                    {
+                        get: () => config.secondary_color || defaultConfig.secondary_color,
+                        set: (value) => {
+                            if (window.elementSdk) {
+                                window.elementSdk.setConfig({ secondary_color: value });
+                            }
+                        }
+                    },
+                    {
+                        get: () => config.accent_color || defaultConfig.accent_color,
+                        set: (value) => {
+                            if (window.elementSdk) {
+                                window.elementSdk.setConfig({ accent_color: value });
+                            }
+                        }
+                    }
+                ],
+                borderables: [],
+                fontEditable: undefined,
+                fontSizeable: undefined
+            };
+        }
+
+        function mapToEditPanelValues(config) {
+            return new Map([
+                ["school_name", config.school_name || defaultConfig.school_name],
+                ["class_info", config.class_info || defaultConfig.class_info],
+                ["lesson_title", config.lesson_title || defaultConfig.lesson_title],
+                ["welcome_message", config.welcome_message || defaultConfig.welcome_message]
+            ]);
+        }
+
+        // Initialize SDKs
+        async function initializeApp() {
+            try {
+                if (window.dataSdk) {
+                    const initResult = await window.dataSdk.init(dataHandler);
+                    if (!initResult.isOk) {
+                        console.error("Failed to initialize data SDK");
+                    }
+                }
+
+                if (window.elementSdk) {
+                    window.elementSdk.init({
+                        defaultConfig,
+                        onConfigChange,
+                        mapToCapabilities,
+                        mapToEditPanelValues
+                    });
+                }
+            } catch (error) {
+                console.error("Error initializing SDKs:", error);
+            }
+
+            // Initialize triangle simulation
+            updateTriangle();
+        }
+
+        // Navigation functions
+        function showSection(sectionName) {
+            // Hide all sections
+            const sections = document.querySelectorAll('.section-content');
+            sections.forEach(section => section.classList.add('hidden'));
+            
+            // Show selected section
+            document.getElementById(sectionName + '-section').classList.remove('hidden');
+            
+            // Update navigation buttons
+            const navButtons = document.querySelectorAll('.nav-btn');
+            navButtons.forEach(btn => {
+                btn.classList.remove('bg-white', 'text-purple-600');
+                btn.classList.add('bg-purple-500', 'text-white');
+            });
+            
+            event.target.classList.remove('bg-purple-500', 'text-white');
+            event.target.classList.add('bg-white', 'text-purple-600');
+        }
+
+        // Triangle simulation functions
+        function updateTriangle() {
+            const a = parseFloat(document.getElementById('side-a').value) || 3;
+            const b = parseFloat(document.getElementById('side-b').value) || 4;
+            const c = Math.sqrt(a * a + b * b);
+            
+            // Update displays
+            document.getElementById('display-a').textContent = a + ' cm';
+            document.getElementById('display-b').textContent = b + ' cm';
+            document.getElementById('display-c').textContent = c.toFixed(1) + ' cm';
+            
+            // Update calculation steps
+            document.getElementById('step1').textContent = `c² = ${a}² + ${b}²`;
+            document.getElementById('step2').textContent = `c² = ${a*a} + ${b*b} = ${a*a + b*b}`;
+            document.getElementById('step3').textContent = `c = ${c.toFixed(1)} cm`;
+            
+            // Draw triangle
+            drawTriangle(a, b, c);
+        }
+
+        function drawTriangle(a, b, c) {
+            const svg = document.getElementById('triangle-svg');
+            const scale = Math.min(150 / Math.max(a, b), 10);
+            
+            const width = a * scale;
+            const height = b * scale;
+            const startX = 50;
+            const startY = 180;
+            
+            svg.innerHTML = `
+                <defs>
+                    <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+                        <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#e5e7eb" stroke-width="1"/>
+                    </pattern>
+                </defs>
+                <rect width="100%" height="100%" fill="url(#grid)"/>
+                
+                <!-- Triangle -->
+                <polygon points="${startX},${startY} ${startX + width},${startY} ${startX + width},${startY - height}" 
+                         fill="#ddd6fe" stroke="#7c3aed" stroke-width="3"/>
+                
+                <!-- Right angle indicator -->
+                <rect x="${startX + width - 15}" y="${startY - 15}" width="15" height="15" 
+                      fill="none" stroke="#7c3aed" stroke-width="2"/>
+                
+                <!-- Labels -->
+                <text x="${startX + width/2}" y="${startY + 15}" text-anchor="middle" class="text-sm font-bold fill-blue-600">a = ${a}</text>
+                <text x="${startX + width + 15}" y="${startY - height/2}" text-anchor="middle" class="text-sm font-bold fill-green-600">b = ${b}</text>
+                <text x="${startX + width/2 - 10}" y="${startY - height/2 - 10}" text-anchor="middle" class="text-sm font-bold fill-red-600">c = ${c.toFixed(1)}</text>
+            `;
+        }
+
+        // Quiz functions
+        function startQuiz() {
+            const studentName = document.getElementById('student-name').value.trim();
+            if (!studentName) {
+                // Show inline message instead of alert
+                const nameInput = document.getElementById('student-name');
+                nameInput.style.borderColor = '#ef4444';
+                nameInput.placeholder = 'Nama harus diisi!';
+                setTimeout(() => {
+                    nameInput.style.borderColor = '';
+                    nameInput.placeholder = 'Masukkan nama Anda';
+                }, 3000);
+                return;
+            }
+            
+            document.getElementById('quiz-start').classList.add('hidden');
+            document.getElementById('quiz-content').classList.remove('hidden');
+            
+            currentQuestionIndex = 0;
+            userAnswers = [];
+            quizStartTime = Date.now();
+            
+            startTimer();
+            loadQuestion();
+        }
+
+        function startTimer() {
+            timerInterval = setInterval(() => {
+                const elapsed = Math.floor((Date.now() - quizStartTime) / 1000);
+                const minutes = Math.floor(elapsed / 60);
+                const seconds = elapsed % 60;
+                document.getElementById('timer').textContent = 
+                    `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            }, 1000);
+        }
+
+        function loadQuestion() {
+            const question = quizQuestions[currentQuestionIndex];
+            const container = document.getElementById('question-container');
+            
+            container.innerHTML = `
+                <div class="mb-4">
+                    <h4 class="text-lg font-bold text-gray-800 mb-4">${question.question}</h4>
+                    <div class="space-y-2">
+                        ${question.options.map((option, index) => `
+                            <label class="flex items-center p-3 border rounded-lg cursor-pointer hover:bg-gray-50 transition-colors">
+                                <input type="radio" name="answer" value="${index}" class="mr-3 text-purple-600">
+                                <span>${option}</span>
+                            </label>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+            
+            // Update progress
+            const progress = ((currentQuestionIndex + 1) / quizQuestions.length) * 100;
+            document.getElementById('progress-bar').style.width = progress + '%';
+            document.getElementById('current-question').textContent = currentQuestionIndex + 1;
+            document.getElementById('total-questions').textContent = quizQuestions.length;
+            
+            // Update buttons
+            document.getElementById('prev-btn').disabled = currentQuestionIndex === 0;
+            document.getElementById('next-btn').textContent = 
+                currentQuestionIndex === quizQuestions.length - 1 ? 'Selesai' : 'Selanjutnya →';
+        }
+
+        function nextQuestion() {
+            const selectedAnswer = document.querySelector('input[name="answer"]:checked');
+            if (!selectedAnswer) {
+                // Show inline message instead of alert
+                const container = document.getElementById('question-container');
+                const message = document.createElement('div');
+                message.className = 'bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4';
+                message.textContent = 'Silakan pilih jawaban terlebih dahulu!';
+                container.insertBefore(message, container.firstChild);
+                setTimeout(() => message.remove(), 3000);
+                return;
+            }
+            
+            userAnswers[currentQuestionIndex] = parseInt(selectedAnswer.value);
+            
+            if (currentQuestionIndex < quizQuestions.length - 1) {
+                currentQuestionIndex++;
+                loadQuestion();
+            } else {
+                finishQuiz();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                loadQuestion();
+                
+                // Restore previous answer if exists
+                if (userAnswers[currentQuestionIndex] !== undefined) {
+                    const radio = document.querySelector(`input[name="answer"][value="${userAnswers[currentQuestionIndex]}"]`);
+                    if (radio) radio.checked = true;
+                }
+            }
+        }
+
+        async function finishQuiz() {
+            clearInterval(timerInterval);
+            
+            const score = userAnswers.reduce((total, answer, index) => {
+                return total + (answer === quizQuestions[index].correct ? 1 : 0);
+            }, 0);
+            
+            const completionTime = Math.floor((Date.now() - quizStartTime) / 1000);
+            const studentName = document.getElementById('student-name').value;
+            
+            // Save result to Data SDK
+            if (window.dataSdk) {
+                const result = await window.dataSdk.create({
+                    student_name: studentName,
+                    quiz_score: score,
+                    quiz_answers: JSON.stringify(userAnswers),
+                    completion_time: new Date().toISOString(),
+                    attempt_number: quizData.filter(d => d.student_name === studentName).length + 1
+                });
+                
+                if (!result.isOk) {
+                    console.error("Failed to save quiz result");
+                }
+            }
+            
+            // Show results
+            document.getElementById('quiz-content').classList.add('hidden');
+            document.getElementById('quiz-result').classList.remove('hidden');
+            
+            document.getElementById('final-score').textContent = `${score}/${quizQuestions.length}`;
+            
+            const percentage = (score / quizQuestions.length) * 100;
+            let message = '';
+            if (percentage >= 80) message = 'Luar biasa! Anda sangat memahami materi!';
+            else if (percentage >= 60) message = 'Bagus! Terus tingkatkan pemahaman Anda!';
+            else message = 'Perlu belajar lebih giat lagi. Semangat!';
+            
+            document.getElementById('score-message').textContent = message;
+            
+            const minutes = Math.floor(completionTime / 60);
+            const seconds = completionTime % 60;
+            document.getElementById('completion-time').textContent = 
+                `Waktu: ${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+
+        function restartQuiz() {
+            document.getElementById('quiz-result').classList.add('hidden');
+            document.getElementById('quiz-start').classList.remove('hidden');
+            document.getElementById('student-name').value = '';
+        }
+
+        // Results functions
+        function updateResultsDisplay() {
+            const noResults = document.getElementById('no-results');
+            const resultsList = document.getElementById('results-list');
+            const resultsContainer = document.getElementById('results-container');
+            
+            if (quizData.length === 0) {
+                noResults.classList.remove('hidden');
+                resultsList.classList.add('hidden');
+            } else {
+                noResults.classList.add('hidden');
+                resultsList.classList.remove('hidden');
+                
+                // Sort by completion time (newest first)
+                const sortedData = [...quizData].sort((a, b) => new Date(b.completion_time) - new Date(a.completion_time));
+                
+                resultsContainer.innerHTML = sortedData.map(result => {
+                    const date = new Date(result.completion_time);
+                    const percentage = (result.quiz_score / quizQuestions.length) * 100;
+                    const badgeColor = percentage >= 80 ? 'bg-green-500' : percentage >= 60 ? 'bg-yellow-500' : 'bg-red-500';
+                    
+                    return `
+                        <div class="bg-gray-50 p-4 rounded-lg border">
+                            <div class="flex justify-between items-start mb-2">
+                                <div>
+                                    <h5 class="font-bold text-gray-800">${result.student_name}</h5>
+                                    <p class="text-sm text-gray-600">Percobaan ke-${result.attempt_number}</p>
+                                </div>
+                                <div class="text-right">
+                                    <div class="flex items-center space-x-2">
+                                        <span class="${badgeColor} text-white px-2 py-1 rounded text-sm font-bold">
+                                            ${result.quiz_score}/${quizQuestions.length}
+                                        </span>
+                                        <span class="text-sm text-gray-500">${percentage.toFixed(0)}%</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="text-xs text-gray-500">
+                                ${date.toLocaleDateString('id-ID')} ${date.toLocaleTimeString('id-ID')}
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            }
+        }
+
+        async function clearAllResults() {
+            // Show inline confirmation instead of confirm dialog
+            const resultsList = document.getElementById('results-list');
+            const confirmDiv = document.createElement('div');
+            confirmDiv.className = 'bg-red-50 border border-red-200 p-4 rounded-lg mb-4';
+            confirmDiv.innerHTML = `
+                <p class="text-red-800 mb-3">Yakin ingin menghapus semua hasil kuis?</p>
+                <div class="space-x-2">
+                    <button onclick="confirmClearResults()" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">
+                        Ya, Hapus Semua
+                    </button>
+                    <button onclick="this.parentElement.parentElement.remove()" class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600">
+                        Batal
+                    </button>
+                </div>
+            `;
+            resultsList.insertBefore(confirmDiv, resultsList.firstChild);
+        }
+
+        async function confirmClearResults() {
+            if (window.dataSdk && quizData.length > 0) {
+                // Delete all records
+                for (const record of quizData) {
+                    await window.dataSdk.delete(record);
+                }
+            }
+            
+            // Remove confirmation dialog
+            const confirmDiv = document.querySelector('.bg-red-50');
+            if (confirmDiv) confirmDiv.remove();
+        }
+
+        // Initialize app when page loads
+        document.addEventListener('DOMContentLoaded', initializeApp);
+    </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9955c9d511abce46',t:'MTc2MTYwNTgwNC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
