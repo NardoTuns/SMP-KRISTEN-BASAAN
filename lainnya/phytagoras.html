@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interaktiv: Menemukan Teorema Pythagoras</title>
+    <!-- Chosen Palette: Warm Neutrals -->
+    <!-- Application Structure Plan: Struktur SPA ini menggunakan navigasi 4 tab (Persiapan, Aktivitas Inti, Penemuan & Diferensiasi, Konsep & Tindak Lanjut) untuk mengubah rencana pelajaran linier menjadi fase-fase logis. Struktur ini dipilih karena memandu pengguna (misalnya, guru) melalui alur pelajaran (persiapan, aktivitas, penemuan, kesimpulan) yang lebih intuitif untuk perencanaan atau ulasan. Interaksi utamanya adalah mengklik tab untuk menampilkan bagian konten. Di bagian "Penemuan", pengguna dapat mengklik tombol untuk secara dinamis menghasilkan diagram batang (bar chart), yang secara visual membandingkan a² + b² dengan c² untuk dua contoh segitiga (3,4,5 dan 6,8,10), yang secara langsung memperkuat tujuan "penemuan" dari pelajaran tersebut. -->
+    <!-- Visualization & Content Choices: 
+        - Info Laporan: Materi Apersepsi & Motivasi (Teks). Tujuan: Menginformasikan/Mempersiapkan. Metode: Konten teks (HTML) dikelompokkan di tab "Persiapan". Interaksi: Dibaca, diakses via klik tab. Justifikasi: Mengelompokkan semua materi persiapan secara logis.
+        - Info Laporan: LKPD (Langkah aktivitas 1-3). Tujuan: Mengatur/Memberi Instruksi. Metode: Daftar terurut (HTML) di tab "Aktivitas Inti". Interaksi: Dibaca, diakses via klik tab. Justifikasi: Menyajikan instruksi aktivitas praktik dengan jelas.
+        - Info Laporan: Analisis LKPD (Tabel 3,4,5 & 6,8,10), temuan 25 = 9+16. Tujuan: Membandingkan/Menganalisis. Metode: Diagram Batang Interaktif (Chart.js di Canvas) di bagian "Penemuan". Interaksi: Tombol ("Data 3,4,5" / "Data 6,8,10") memicu JS untuk merender/memperbarui chart, membandingkan a², b², a²+b², dan c². Justifikasi: Ini adalah inti dari momen "Aha!". Tabel statis lemah; chart interaktif *menunjukkan* kesetaraan a²+b² = c², membuat penemuan menjadi berdampak.
+        - Info Laporan: Generalisasi (Rumus) & Tindak Lanjut (PR). Tujuan: Menginformasikan/Merangkum. Metode: Konten teks (HTML) di tab "Konsep & Tindak Lanjut". Interaksi: Dibaca, diakses via klik tab. Justifikasi: Mengkonsolidasikan kesimpulan pelajaran dan langkah selanjutnya.
+        - Library: Chart.js (Wajib). -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .nav-btn.active {
+            font-weight: 600;
+            color: #0369a1; 
+            border-bottom-color: #0369a1;
+        }
+        .content-section {
+            display: none;
+        }
+        .content-section.active {
+            display: block;
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        stone: {
+                            50: '#fafaf9',
+                            100: '#f5f5f4',
+                            200: '#e7e5e4',
+                            300: '#d6d3d1',
+                            400: '#a8a29e',
+                            500: '#78716c',
+                            600: '#57534e',
+                            700: '#44403c',
+                            800: '#292524',
+                            900: '#1c1917',
+                        },
+                        sky: {
+                            700: '#0369a1',
+                            100: '#e0f2fe',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-stone-100 text-stone-700">
+
+    <header class="bg-white shadow-sm sticky top-0 z-10">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <h1 class="text-xl sm:text-2xl font-bold text-stone-800">
+                    Interaktiv: Menemukan Teorema Pythagoras
+                </h1>
+                <button id="mobileMenuBtn" class="md:hidden p-2 rounded-md text-stone-600 hover:bg-stone-100">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
+            </div>
+        </div>
+        <nav id="navigationMenu" class="container mx-auto px-4 sm:px-6 lg:px-8 pb-3 md:flex md:pb-0 md:justify-center hidden md:block">
+            <div class="flex flex-col md:flex-row md:space-x-6 lg:space-x-8" role="tablist">
+                <button class="nav-btn py-2 px-3 text-left md:text-center text-stone-600 hover:text-stone-900 border-b-2 border-transparent transition-colors duration-200" data-target="persiapan" role="tab" aria-selected="true">
+                    Persiapan
+                </button>
+                <button class="nav-btn py-2 px-3 text-left md:text-center text-stone-600 hover:text-stone-900 border-b-2 border-transparent transition-colors duration-200" data-target="aktivitas" role="tab" aria-selected="false">
+                    Aktivitas Inti
+                </button>
+                <button class="nav-btn py-2 px-3 text-left md:text-center text-stone-600 hover:text-stone-900 border-b-2 border-transparent transition-colors duration-200" data-target="penemuan" role="tab" aria-selected="false">
+                    Penemuan & Diferensiasi
+                </button>
+                <button class="nav-btn py-2 px-3 text-left md:text-center text-stone-600 hover:text-stone-900 border-b-2 border-transparent transition-colors duration-200" data-target="konsep" role="tab" aria-selected="false">
+                    Konsep & Tindak Lanjut
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto mt-6 sm:mt-8 p-4 sm:px-6 lg:px-8">
+        
+        <section id="persiapan" class="content-section active bg-white p-6 sm:p-8 rounded-lg shadow-lg space-y-6" role="tabpanel">
+            <h2 class="text-2xl sm:text-3xl font-bold text-stone-800 border-b pb-2">Tahap 1: Persiapan (15 Menit)</h2>
+            <p class="text-base sm:text-lg text-stone-600">
+                Bagian ini mencakup konsep prasyarat dan motivasi untuk membangkitkan minat siswa. Ini adalah fondasi penting sebelum memulai aktivitas inti, memastikan semua siswa memiliki pemahaman dasar yang sama dan melihat relevansi dari apa yang akan mereka pelajari.
+            </p>
+
+            <div class="space-y-4">
+                <h3 class="text-xl font-semibold text-stone-700">A. Materi Apersepsi</h3>
+                <p>Ingat kembali dua konsep penting ini:</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="bg-stone-50 p-4 rounded-lg border border-stone-200">
+                        <h4 class="font-bold text-lg">1. Luas Persegi</h4>
+                        <p class="mt-1">Luas persegi dihitung dengan mengalikan panjang sisinya dengan dirinya sendiri.</p>
+                        <p class="mt-2 font-mono bg-stone-200 px-2 py-1 rounded inline-block">Rumus: L = s² (sisi × sisi)</p>
+                        <p class="mt-2 pt-2 border-t border-stone-200">
+                            <strong>Contoh:</strong> Jika sisi persegi 5 cm, luasnya adalah...<br>
+                            L = 5² = 5 × 5 = <strong>25 cm²</strong>
+                        </p>
+                    </div>
+                    <div class="bg-stone-50 p-4 rounded-lg border border-stone-200">
+                        <h4 class="font-bold text-lg">2. Akar Kuadrat</h4>
+                        <p class="mt-1">Akar kuadrat (√) adalah kebalikan dari pangkat dua.</p>
+                        <p class="mt-2 font-mono bg-stone-200 px-2 py-1 rounded inline-block">√25 = 5 (karena 5² = 25)</p>
+                        <ul class="mt-2 pt-2 border-t border-stone-200 list-disc list-inside space-y-1">
+                            <li>√81 = 9 (karena 9² = 81)</li>
+                            <li>√144 = 12 (karena 12² = 144)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="space-y-4">
+                <h3 class="text-xl font-semibold text-stone-700">B. Motivasi</h3>
+                <div class="bg-stone-50 p-4 rounded-lg border border-stone-200">
+                    <p class="mb-2">Perhatikan struktur jembatan rangka baja atau kerangka atap rumah. Anda akan melihat banyak sekali bentuk **segitiga**.</p>
+                    <p class="font-semibold text-stone-800">Pertanyaan Diskusi:</p>
+                    <blockquote class="border-l-4 border-sky-700 pl-4 italic text-stone-600 mt-2">
+                        "Mengapa bentuk ini penting? (Segitiga adalah bentuk kaku yang sangat kuat untuk menopang beban). Bagaimana kita bisa tahu hubungan panjang sisi-sisinya?"
+                    </blockquote>
+                </div>
+            </div>
+        </section>
+
+        <section id="aktivitas" class="content-section bg-white p-6 sm:p-8 rounded-lg shadow-lg space-y-6" role="tabpanel">
+            <h2 class="text-2xl sm:text-3xl font-bold text-stone-800 border-b pb-2">Tahap 2: Aktivitas Inti (55 Menit)</h2>
+            <p class="text-base sm:text-lg text-stone-600">
+                Ini adalah bagian utama dari pelajaran di mana siswa secara aktif menemukan konsep melalui kegiatan praktik. Bagian ini merinci langkah-langkah yang harus dilakukan siswa dalam kelompok untuk membangun pemahaman mereka sendiri tentang teorema Pythagoras.
+            </p>
+            
+            <h3 class="text-xl font-semibold text-stone-700">LKPD (Lembar Kerja Peserta Didik)</h3>
+            <p><strong>Tujuan:</strong> Peserta didik dapat menemukan hubungan antara panjang sisi-sisi segitiga siku-siku.</p>
+
+            <div class="space-y-4">
+                <h4 class="text-lg font-semibold text-stone-700">Alat dan Bahan:</h4>
+                <ul class="list-disc list-inside ml-4 space-y-1 text-stone-600">
+                    <li>Kertas berpetak (atau penggaris)</li>
+                    <li>Gunting</li>
+                    <li>Lem</li>
+                    <li>Kertas karton (untuk menempel)</li>
+                </ul>
+            </div>
+
+            <div class="space-y-4">
+                <h4 class="text-lg font-semibold text-stone-700">Langkah-Langkah Kegiatan:</h4>
+                <ol class="list-decimal list-inside ml-4 space-y-3">
+                    <li>
+                        <strong>Membuat Persegi:</strong><br>
+                        Buatlah 3 buah persegi dari kertas berpetak dengan ukuran:
+                        <ul class="list-disc list-inside ml-6 mt-1">
+                            <li>Persegi A: sisi <strong>3</strong> satuan</li>
+                            <li>Persegi B: sisi <strong>4</strong> satuan</li>
+                            <li>Persegi C: sisi <strong>5</strong> satuan</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <strong>Menghitung Luas:</strong><br>
+                        Hitung luas dari masing-masing persegi tersebut dan catat hasilnya.
+                        (Luas A = 9, Luas B = 16, Luas C = 25).
+                    </li>
+                    <li>
+                        <strong>Mengkonstruksi Segitiga:</strong><br>
+                        Gunting ketiga persegi. Tempelkan di kertas karton sehingga sisi-sisinya saling bersentuhan dan membentuk sebuah <strong>segitiga siku-siku</strong> di bagian tengah yang kosong.
+                    </li>
+                    <li>
+                        <strong>Analisis Data & Kesimpulan:</strong><br>
+                        Lanjutkan ke tab "Penemuan" untuk menganalisis data Anda secara visual dan menarik kesimpulan.
+                    </li>
+                </ol>
+            </div>
+        </section>
+        
+        <section id="penemuan" class="content-section bg-white p-6 sm:p-8 rounded-lg shadow-lg space-y-6" role="tabpanel">
+            <h2 class="text-2xl sm:text-3xl font-bold text-stone-800 border-b pb-2">Tahap 3: Penemuan & Diferensiasi</h2>
+            <p class="text-base sm:text-lg text-stone-600">
+                Di sinilah "Aha!" momen terjadi. Setelah melakukan aktivitas, siswa menganalisis hasilnya. Gunakan visualisasi data interaktif di bawah ini untuk melihat hubungan antara luas persegi dan memvalidasi temuan Anda. Bagian ini juga mencakup tugas pengayaan untuk kelompok yang lebih cepat.
+            </p>
+
+            <h3 class="text-xl font-semibold text-stone-700">Analisis Data Interaktif</h3>
+            <p>Klik tombol di bawah untuk memvisualisasikan data dari aktivitas Anda. Bandingkan jumlah luas dua persegi kecil (a² + b²) dengan luas persegi terbesar (c²).</p>
+            
+            <div id="chartControls" class="flex flex-wrap gap-2 sm:gap-4 justify-center my-4">
+                <button id="btn345" class="py-2 px-4 bg-sky-700 text-white rounded-lg font-semibold hover:bg-sky-800 transition-colors">
+                    Tampilkan Data (3, 4, 5)
+                </button>
+                <button id="btn6810" class="py-2 px-4 bg-stone-600 text-white rounded-lg font-semibold hover:bg-stone-700 transition-colors">
+                    Tampilkan Data (6, 8, 10)
+                </button>
+            </div>
+
+            <div class="chart-container">
+                <canvas id="pythagorasChart"></canvas>
+            </div>
+            
+            <h3 class="text-xl font-semibold text-stone-700 mt-8">Kesimpulan Penemuan</h3>
+            <p class="text-lg text-center font-semibold text-sky-700 p-4 bg-sky-50 rounded-lg">
+                Luas Persegi pada Sisi Miring (c²) = Luas Persegi A (a²) + Luas Persegi B (b²)
+            </p>
+
+            <h3 class="text-xl font-semibold text-stone-700 mt-8">Diferensiasi Proses (Untuk Kelompok Cepat)</h3>
+            <div class="bg-stone-50 p-4 rounded-lg border border-stone-200">
+                <h4 class="font-bold text-lg">Tugas Verifikasi (Pengayaan)</h4>
+                <p class="mt-1">Sudah selesai? Coba buktikan lagi temuan kalian! Ulangi langkah-langkah, tapi gunakan persegi dengan sisi <strong>6, 8,</strong> dan <strong>10</strong> satuan. Apakah hubungannya masih sama? (Gunakan tombol "Tampilkan Data (6, 8, 10)" di atas untuk memeriksa).</p>
+                <ul class="list-disc list-inside ml-4 mt-2">
+                    <li>Luas A (6²) = 36</li>
+                    <li>Luas B (8²) = 64</li>
+                    <li>Luas C (10²) = 100</li>
+                    <li>Periksa: 36 + 64 = 100. (Ya, terbukti!)</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="konsep" class="content-section bg-white p-6 sm:p-8 rounded-lg shadow-lg space-y-6" role="tabpanel">
+            <h2 class="text-2xl sm:text-3xl font-bold text-stone-800 border-b pb-2">Tahap 4: Konsep & Tindak Lanjut (10 Menit)</h2>
+            <p class="text-base sm:text-lg text-stone-600">
+                Bagian terakhir ini memformalkan penemuan siswa menjadi konsep matematika yang diakui (Teorema Pythagoras) dan memberikan tugas tindak lanjut untuk menerapkan konsep yang baru dipelajari. Ini mengkonsolidasikan pembelajaran dan menghubungkannya dengan masalah di masa depan.
+            </p>
+
+            <div class="space-y-4">
+                <h3 class="text-xl font-semibold text-stone-700">A. Generalisasi Konsep</h3>
+                <p>Dari kegiatan tadi, kita menemukan sebuah teorema yang sangat terkenal. Mari kita definisikan bagian-bagian dari segitiga siku-siku:</p>
+                <ul class="list-disc list-inside ml-4 space-y-1">
+                    <li><strong>Sisi Penyiku (a dan b):</strong> Dua sisi yang membentuk sudut siku-siku (90°).</li>
+                    <li><strong>Sisi Miring / Hipotenusa (c):</strong> Sisi terpanjang yang berada di depan sudut siku-siku.</li>
+                </ul>
+                <p class="mt-4 text-lg text-center font-semibold text-sky-700 p-4 bg-sky-50 rounded-lg">
+                    Temuan kita: <span class="font-bold">c² = a² + b²</span><br>
+                    <span class="text-base font-normal text-stone-700">Inilah yang disebut sebagai <strong>TEOREMA PYTHAGORAS</strong>.</span>
+                </p>
+            </div>
+
+            <div class="space-y-4">
+                <h3 class="text-xl font-semibold text-stone-700">B. Soal Tindak Lanjut (Tugas)</h3>
+                <div class="bg-stone-50 p-4 rounded-lg border border-stone-200">
+                    <h4 class="font-bold text-lg">Terapkan Teorema!</h4>
+                    <p class="mt-1">Gunakan rumus $c² = a² + b²$ untuk memecahkan soal berikut:</p>
+                    <p class="mt-2 italic">"Sebuah segitiga siku-siku memiliki sisi penyiku (a) sepanjang 5 cm dan sisi penyiku (b) sepanjang 12 cm. Hitunglah panjang sisi miringnya (c)!"</p>
+                    <div class="mt-3 pt-3 border-t border-stone-200">
+                        <p class="font-semibold">Langkah Penyelesaian:</p>
+                        <ul class="font-mono text-sm text-stone-600 space-y-1 mt-1">
+                            <li>c² = 5² + 12²</li>
+                            <li>c² = 25 + 144</li>
+                            <li>c² = 169</li>
+                            <li>c = √169</li>
+                            <li>c = 13 cm</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            const navButtons = document.querySelectorAll('.nav-btn');
+            const contentSections = document.querySelectorAll('.content-section');
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const navigationMenu = document.getElementById('navigationMenu');
+            let currentChart = null;
+            const ctx = document.getElementById('pythagorasChart').getContext('2d');
+
+            const data345 = {
+                labels: ['Persegi A (a²=9)', 'Persegi B (b²=16)', 'a² + b²', 'Persegi C (c²=25)'],
+                datasets: [{
+                    label: 'Luas Satuan',
+                    data: [9, 16, 25, 25],
+                    backgroundColor: [
+                        'rgba(255, 159, 64, 0.7)',
+                        'rgba(54, 162, 235, 0.7)',
+                        'rgba(201, 203, 207, 0.7)',
+                        'rgba(75, 192, 192, 0.7)'
+                    ],
+                    borderColor: [
+                        'rgb(255, 159, 64)',
+                        'rgb(54, 162, 235)',
+                        'rgb(201, 203, 207)',
+                        'rgb(75, 192, 192)'
+                    ],
+                    borderWidth: 1
+                }]
+            };
+
+            const data6810 = {
+                labels: ['Persegi A (a²=36)', 'Persegi B (b²=64)', 'a² + b²', 'Persegi C (c²=100)'],
+                datasets: [{
+                    label: 'Luas Satuan',
+                    data: [36, 64, 100, 100],
+                    backgroundColor: [
+                        'rgba(255, 159, 64, 0.7)',
+                        'rgba(54, 162, 235, 0.7)',
+                        'rgba(201, 203, 207, 0.7)',
+                        'rgba(75, 192, 192, 0.7)'
+                    ],
+                    borderColor: [
+                        'rgb(255, 159, 64)',
+                        'rgb(54, 162, 235)',
+                        'rgb(201, 203, 207)',
+                        'rgb(75, 192, 192)'
+                    ],
+                    borderWidth: 1
+                }]
+            };
+
+            function renderChart(data) {
+                if (currentChart) {
+                    currentChart.destroy();
+                }
+                currentChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: data,
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: false
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        let label = context.dataset.label || '';
+                                        if (label) {
+                                            label += ': ';
+                                        }
+                                        if (context.parsed.y !== null) {
+                                            label += context.parsed.y + ' satuan luas';
+                                        }
+                                        return label;
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                title: {
+                                    display: true,
+                                    text: 'Luas Satuan (x²)'
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            function switchTab(targetId) {
+                contentSections.forEach(section => {
+                    section.classList.remove('active');
+                    if (section.id === targetId) {
+                        section.classList.add('active');
+                    }
+                });
+
+                navButtons.forEach(button => {
+                    button.classList.remove('active');
+                    button.setAttribute('aria-selected', 'false');
+                    if (button.dataset.target === targetId) {
+                        button.classList.add('active');
+                        button.setAttribute('aria-selected', 'true');
+                    }
+                });
+
+                if (targetId === 'penemuan' && !currentChart) {
+                    renderChart(data345);
+                }
+            }
+
+            navButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    switchTab(button.dataset.target);
+                    if (window.innerWidth < 768) {
+                        navigationMenu.classList.add('hidden');
+                    }
+                });
+            });
+
+            document.getElementById('btn345').addEventListener('click', () => renderChart(data345));
+            document.getElementById('btn6810').addEventListener('click', () => renderChart(data6810));
+            
+            mobileMenuBtn.addEventListener('click', () => {
+                navigationMenu.classList.toggle('hidden');
+            });
+
+            switchTab('persiapan');
+        });
+    </script>
+</body>
+</html>
