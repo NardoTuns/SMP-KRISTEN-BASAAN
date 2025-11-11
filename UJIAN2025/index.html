@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Ujian</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Portal Ujian</h1>
+        <div class="form-grup">
+            <label for="kelas">Pilih Kelas:</label>
+            <select id="kelas">
+                <option value="">-- Memuat kelas... --</option>
+            </select>
+        </div>
+        <div class="form-grup">
+            <label for="nama">Pilih Nama:</label>
+            <select id="nama" disabled>
+                <option value="">-- Pilih kelas dulu --</option>
+            </select>
+        </div>
+        <div class="form-grup">
+            <label for="mapel">Mata Pelajaran:</label>
+            <select id="mapel">
+                <option value="IPA7">IPA Kelas 7</option>
+                <option value="IPS7">IPS Kelas 7</option>
+            </select>
+        </div>
+        <div class="form-grup">
+            <label for="password">Password:</label>
+            <input type="password" id="password" placeholder="Masukan password Anda">
+        </div>
+        <button id="login-btn">Login</button>
+        <div id="loading" class="hidden">
+            <p>Memvalidasi data...</p>
+        </div>
+    </div>
+    <script src="login.js"></script>
+</body>
+</html>

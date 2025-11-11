@@ -1,0 +1,138 @@
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background-color: #f4f7f6;
+    margin: 0;
+    padding: 20px;
+}
+
+/* --- Halaman Login --- */
+.container {
+    max-width: 400px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.form-grup {
+    margin-bottom: 15px;
+}
+
+.form-grup label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+
+.form-grup select,
+.form-grup input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box; /* Penting untuk padding */
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+button:disabled {
+    background-color: #aaa;
+}
+
+button:hover:not(:disabled) {
+    background-color: #0056b3;
+}
+
+.hidden {
+    display: none;
+}
+
+#loading {
+    text-align: center;
+    margin-top: 15px;
+    color: #555;
+}
+
+/* --- Halaman Ujian --- */
+.container-ujian {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.header-ujian {
+    border-bottom: 2px solid #eee;
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+}
+
+.header-ujian h1 {
+    margin: 0;
+    color: #333;
+}
+
+.header-ujian h3 {
+    margin: 5px 0 0 0;
+    color: #555;
+    font-weight: 400;
+}
+
+.soal-container, .jawaban-container {
+    margin-bottom: 25px;
+}
+
+#pdf-viewer {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+#lembar-jawaban {
+    max-height: 400px;
+    overflow-y: auto;
+    border: 1px solid #eee;
+    padding: 15px;
+    border-radius: 4px;
+}
+
+.soal-item {
+    padding: 10px 5px;
+    border-bottom: 1px dashed #eee;
+}
+
+.soal-item:last-child {
+    border-bottom: none;
+}
+
+.soal-item .nomor-soal {
+    font-weight: 600;
+    margin-right: 10px;
+    min-width: 25px;
+    display: inline-block;
+}
+
+.soal-item label {
+    margin-right: 15px;
+    cursor: pointer;
+}
+
+#selesai-btn {
+    background-color: #28a745;
+}
+
+#selesai-btn:hover:not(:disabled) {
+    background-color: #218838;
+}
